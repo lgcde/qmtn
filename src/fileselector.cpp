@@ -29,7 +29,10 @@ FileSelector::FileSelector(QWidget *parent):QWidget(parent)
 
     l->setSpacing(2);
     l->setContentsMargins(0,0,0,0);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+#else
     l->setMargin(0);
+#endif
 
     edit->setReadOnly(true);    
 

@@ -1,6 +1,5 @@
 #include <QFileInfo>
 #include <QHttpMultiPart>
-#include <QRegExp>
 #include "klikr.h"
 /*****************************************************************************/
 Klikr::Klikr(QWidget *parent, QString filePath):

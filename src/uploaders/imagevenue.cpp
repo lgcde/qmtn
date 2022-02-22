@@ -1,6 +1,10 @@
 #include <QFileInfo>
 #include <QHttpMultiPart>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+#include <QRegularExpression>
+#else
 #include <QRegExp>
+#endif
 #include "imagevenue.h"
 /*****************************************************************************/
 Imagevenue::Imagevenue(QWidget *parent, QString filePath):
@@ -96,6 +100,29 @@ void Imagevenue::imageUploaded()
         webEngine->setHtml(QString::fromUtf8(data));
         showUploadPage(QString());
     #else
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+
+        auto r = QRegularExpression("ID='TextArea4'>(.*)<\\/textarea");
+        auto match = r.match(data, 0, QRegularExpression::PartialPreferFirstMatch);
+        if(match.hasPartialMatch())
+        {
+            auto resultLink = match.captured(1);
+            auto htmltext = QString("<div align=center><img src=\":/icons/imagevenue.png\"><br><h2>Image has been uploaded.</h2><br><a href=\"%1\">%1</a></div>").arg(resultLink);
+            webBrowser->setHtml(htmltext);
+            showUploadPage(QString());
+        }
+        else
+        {
+            QFile resultFile(QString("%1/%2-response.html").arg(QDir::tempPath()).arg(hostName()));
+            resultFile.open(QIODevice::WriteOnly);
+            resultFile.write(data);
+            resultFile.close();
+
+            showErr(tr("Returned page does not contain TextArea4!\nResponse saved in %1").arg(resultFile.fileName()));
+        }
+#else
+
         auto r = QRegExp("ID='TextArea4'>(.*)<\\/textarea");
         r.setMinimal(true); // non-greedy match
 
@@ -115,6 +142,9 @@ void Imagevenue::imageUploaded()
 
             showErr(tr("Returned page does not contain TextArea4!\nResponse saved in %1").arg(resultFile.fileName()));
         }
+#endif
+
+
     #endif
     }
     else

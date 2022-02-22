@@ -1,6 +1,6 @@
 Name:		qmtn	
 Version: 	0.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Qt Movie thumbnailer
 
 Group:		Amusements/Graphics
@@ -13,6 +13,10 @@ Source0:	https://gitlab.com/movie_thumbnailer/qmtn/-/archive/master/qmtn.tar.gz
 
 BuildRequires:	gcc-c++ make
 
+%if 0%{?fedora}
+BuildRequires:	qt6-qtbase-devel
+Requires:		qt6-qtbase qt6-qtsvg
+%else
 %if 0%{?mageia}
 BuildRequires:	lib64qt5webengine-devel
 Requires:		lib64qt5webengine5 lib64qt5svg5
@@ -20,18 +24,26 @@ Requires:		lib64qt5webengine5 lib64qt5svg5
 BuildRequires:	qt5-qtbase-devel
 Requires:		qt5-qtbase qt5-qtsvg
 %endif
+%endif
 
-%{?fedora:BuildRequires: qt5-qtwebengine-devel}
-%{?fedora:Requires:	 	 qt5-qtwebengine}
+# no qt6-qtwebengine in repo?
+# %{?fedora:BuildRequires: qt6-qtwebengine-devel}
+# %{?fedora:Requires:	 	 qt6-qtwebengine}
 
-%if 0%{?fedora} || 0%{?mageia}
-%define qmake_opts CONFIG+=use_webengine src
+%if 0%{?fedora}
+    %define qmake_bin qmake6
 %else
-%define qmake_opts src
+    %define qmake_bin qmake-qt5
+%endif
+
+%if 0%{?mageia}
+    %define qmake_opts CONFIG+=use_webengine src
+%else
+    %define qmake_opts src
 %endif
 
 %description
-Movie thumbnail generator written in Qt5. It is a GUI frontend for mtn.
+Movie thumbnail generator written in Qt framework. It is a GUI frontend for mtn.
 
 %prep
 rm -rf ./*
@@ -39,7 +51,7 @@ tar -xf %SOURCE0
 mv qmtn*/* ./
 
 %build
-qmake-qt5 INSTALL_ROOT=%{buildroot} %{qmake_opts}
+%{qmake_bin} INSTALL_ROOT=%{buildroot} %{qmake_opts}
 
 %make_build
 
@@ -56,6 +68,9 @@ rm -rf %{buildroot}
 rm -rf *
 
 %changelog
+* Tue Feb 22 2022 wahibre <wahibre@gmx.com> - 0.5-2
+- upgrade to Qt6
+
 * Tue Jan 25 2022 wahibre  <wahibre@gmx.com> - 0.5
 - packaging Mageia
 - packaging CentOS

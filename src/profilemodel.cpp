@@ -39,7 +39,11 @@ ProfileModel::~ProfileModel()
 /******************************************************************************************************/
 QString ProfileModel::getSettingsFileName()
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+    QString settdir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+#else
     QString settdir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+#endif
 
     if(!settdir.isEmpty())
     {

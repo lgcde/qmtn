@@ -21,14 +21,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settingsdata.h"
 #include "ui_settingsdialog.h"
 
-#include <QCompleter>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+#include <QFileSystemModel>
+#else
 #include <QDirModel>
+#endif
+#include <QCompleter>
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QTextStream>
-#include <QFileSystemModel>
 
 /******************************************************************************************************/
 SettingsDialog::SettingsDialog(QWidget *parent, ProfileModel *model) :

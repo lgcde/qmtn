@@ -6,7 +6,7 @@ pkgdesc="GUI for mtn (Movie Thumbnailer)"
 arch=('x86_64')
 url="https://gitlab.com/movie_thumbnailer/qmtn"
 license=('GPL3')
-depends=('qt5-base' 'qt5-webengine')
+depends=('qt6-base' 'qt6-webengine')
 makedepends=('git')
 provides=("${pkgname%-git}")
 conflicts=("${pkgname%-git}")
@@ -20,7 +20,7 @@ pkgver() {
 
 build() {
 	cd "$srcdir/${pkgname%-git}"
-        qmake-qt5 CONFIG+=use_webengine src
+	    qmake6 CONFIG+=use_webengine src
 	make
 }
 

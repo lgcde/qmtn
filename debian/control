@@ -3,7 +3,6 @@ Section: utils
 Priority: optional
 Maintainer: wahibre <wahibre@gmx.com>
 Build-Depends: debhelper(>=10),
-               qt5-default,
                qtbase5-dev,
                qtwebengine5-dev
 Standards-Version: 4.1.2
