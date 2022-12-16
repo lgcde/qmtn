@@ -187,11 +187,20 @@ void MainWindow::treeContextMenuRequest(const QPoint &pos)
     auto treeContextMenu = new QMenu(this);
 
     treeContextMenu->addAction(IconProvider::folder(),  tr("Open &Directory"),      this, SLOT(treeOpenDirectory()));
-    treeContextMenu->addAction(IconProvider::video(),   tr("Open &Movie"),          this, SLOT(treeOpenMovie()),        Qt::Key_F3/*to generate hint*/);
+
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
+    treeContextMenu->addAction(IconProvider::video(),   tr("Open &Movie"),          Qt::Key_F3/*to generate hint*/,     this, SLOT(treeOpenMovie()));
+#else
+    treeContextMenu->addAction(IconProvider::video(),   tr("Open &Movie"),          this, SLOT(treeOpenMovie()),        Qt::Key_F3);
+#endif
     treeContextMenu->addAction(ui->actionRemoveItemfromSidebar);
     treeContextMenu->addAction(IconProvider::zoomIn(),  tr("&Expand all"),          ui->treeView, SLOT(expandAll())     );
     treeContextMenu->addAction(IconProvider::zoomOut(), tr("&Collapse all"),        ui->treeView, SLOT(collapseAll())   );
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
+    treeContextMenu->addAction(IconProvider::refresh(), tr("&Recreate Thumbnail"),  Qt::Key_F5/*to generate hint*/,     this, SLOT(recreateThumbnail()));
+#else
     treeContextMenu->addAction(IconProvider::refresh(), tr("&Recreate Thumbnail"),  this, SLOT(recreateThumbnail()),    Qt::Key_F5/*to generate hint*/);
+#endif
     if(ui->actionUploadToImgaa->isVisible())
         treeContextMenu->addAction(ui->actionUploadToImgaa);
     if(ui->actionUploadToImgmi->isVisible())
