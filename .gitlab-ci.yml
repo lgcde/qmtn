@@ -1,20 +1,20 @@
 stages:
     - build
 
-fedora_rawhide:
-    image: fedora:rawhide
+qt6:
+    image: opensuse/tumbleweed
     stage: build
     before_script:
-    - dnf --nogpgcheck -y install gcc-c++ qt5-qtbase-devel qt5-qtwebengine-devel make
+    - zypper in -y qt6-base-devel gcc-c++ make
     script:
-    - qmake-qt5.sh CONFIG+=use_webengine src
-    - make
+    - qmake6 src
+    - make -j2
     artifacts:
         name: qmtn-$CI_JOB_NAME
-        expire_in: 30 week
+        expire_in: 4 week
         paths:
         - ./qmtn
-centOS7:
+qt5:
     image: centos:7
     stage: build
     before_script:
@@ -24,6 +24,6 @@ centOS7:
     - make
     artifacts:
         name: qmtn-$CI_JOB_NAME
-        expire_in: 30 week
+        expire_in: 4 week
         paths:
         - ./qmtn
