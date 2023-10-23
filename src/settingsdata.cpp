@@ -54,10 +54,17 @@ SettingsData::SettingsData(QJsonObject obj)
     infotext            = obj[REG_INFOTEXT          ].toBool(true);
     timestamp           = obj[REG_TIMESTAMP         ].toBool(true);
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 6, 0))
     background.setNamedColor(   obj[REG_BACKGROUND].toString(QColor(Qt::black).name()));
     foreground.setNamedColor(   obj[REG_FOREGROUND].toString(QColor(Qt::white).name()));
     timecolor.setNamedColor (   obj[REG_TIMECOLOR ].toString(QColor(Qt::black).name()));
     timeshadow.setNamedColor(   obj[REG_TIMESHADOW].toString(QColor(Qt::gray).name()));
+#else
+    background = QColor::fromString(obj[REG_BACKGROUND].toString(QColor(Qt::black).name()));
+    foreground = QColor::fromString(obj[REG_FOREGROUND].toString(QColor(Qt::white).name()));
+    timecolor  = QColor::fromString(obj[REG_TIMECOLOR ].toString(QColor(Qt::black).name()));
+    timeshadow = QColor::fromString(obj[REG_TIMESHADOW].toString(QColor(Qt::gray).name()));
+#endif
 
     fontInfotext        = obj[REG_FONTTEXT          ].toString();
     fontTimestamp       = obj[REG_FONTTIME          ].toString();

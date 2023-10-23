@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QToolBar>
-#if QT_VERSION>=0x050600
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 #include <QVersionNumber>
 #include <QDebug>
 #endif
@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
      *  tagged commit       0.1                 0.1
      *  after the tag       0.1-10-g23fc        0.1.10
      */
-#if QT_VERSION>=0x050600
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     setWindowTitle(QString("%1 (%2)").arg(qApp->applicationName()).arg(QVersionNumber::fromString(QString(VERSION_FROM_GIT_TAG).replace('-','.')).toString()));
 #else
     setWindowTitle(QString("%1 (%2)").arg(qApp->applicationName()).arg(VERSION_FROM_GIT_TAG));

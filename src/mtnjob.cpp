@@ -220,7 +220,7 @@ QStringList MtnJob::createArguments()
 /******************************************************************************************************/
 QString MtnJob::color2hex(QColor color)
 {
-#if QT_VERSION>=0x050500
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
     if(color.isValid())
         return QString::asprintf("%02x%02x%02x", color.red(), color.green(), color.blue());
 #else
