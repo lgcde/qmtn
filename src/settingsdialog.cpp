@@ -103,8 +103,8 @@ SettingsData SettingsDialog::settingsData()
     data.timecolor        = m_data.timecolor;
     data.timeshadow       = m_data.timeshadow;
 
-    data.fontInfotext       = ui->wFontInfo->text();
-    data.fontTimestamp      = ui->wFontTimestamp->text();
+    data.fontInfotext       = ui->cbFontInfoText->currentText();
+    data.fontTimestamp      = ui->cbFontTimeStamp->currentText();
     data.fontInfoSize       = ui->sbFontInfoSize->value();
     data.fontTimeSize       = ui->sbFontTimestampSize->value();
     data.fontInfoLocation   = ui->cbFontInfoLocation->currentIndex();
@@ -153,8 +153,8 @@ void SettingsDialog::setSettingsData(SettingsData data)
     setBackGroundColor(ui->btnTimeColor,  data.timecolor);  m_data.timecolor=data.timecolor;
     setBackGroundColor(ui->btnTimeShadow, data.timeshadow); m_data.timeshadow=data.timeshadow;
 
-    ui->wFontInfo->setText(                         data.fontInfotext);
-    ui->wFontTimestamp->setText(                    data.fontTimestamp);
+    ui->cbFontInfoText->setEditText(                data.fontInfotext);
+    ui->cbFontTimeStamp->setEditText(               data.fontTimestamp);
     ui->sbFontInfoSize->setValue(                   data.fontInfoSize);
     ui->sbFontTimestampSize->setValue(              data.fontTimeSize);
     ui->cbFontInfoLocation->setCurrentIndex(        data.fontInfoLocation);

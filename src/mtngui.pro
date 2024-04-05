@@ -40,7 +40,6 @@ SOURCES += main.cpp\
     iconprovider.cpp \
     settingsdata.cpp \
     profilemodel.cpp \
-    ttfselector.cpp \
     uploaders/imagevenue.cpp \
     uploaders/imgaa.cpp \
     uploaders/imgup.cpp \
@@ -56,7 +55,6 @@ HEADERS  += mainwindow.h \
     fileselector.h \
     iconprovider.h \
     profilemodel.h \
-    ttfselector.h  \
     uploaders/imagevenue.h \
     uploaders/imgaa.h \
     uploaders/imgup.h \

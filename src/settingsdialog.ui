@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>883</width>
-    <height>469</height>
+    <height>475</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -983,18 +983,9 @@ QPushButton#btnTimeShadow
                   </widget>
                  </item>
                  <item>
-                  <widget class="TTFSelector" name="wFontInfo" native="true">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                     <horstretch>1</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>0</height>
-                    </size>
+                  <widget class="QFontComboBox" name="cbFontInfoText">
+                   <property name="currentText">
+                    <string/>
                    </property>
                   </widget>
                  </item>
@@ -1198,18 +1189,9 @@ QPushButton#btnTimeShadow
                   </widget>
                  </item>
                  <item>
-                  <widget class="TTFSelector" name="wFontTimestamp" native="true">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>0</height>
-                    </size>
+                  <widget class="QFontComboBox" name="cbFontTimeStamp">
+                   <property name="currentText">
+                    <string/>
                    </property>
                   </widget>
                  </item>
@@ -1500,12 +1482,6 @@ QPushButton#btnTimeShadow
    <class>FileSelector</class>
    <extends>QWidget</extends>
    <header>fileselector.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>TTFSelector</class>
-   <extends>QWidget</extends>
-   <header>ttfselector.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

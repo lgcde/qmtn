@@ -47,9 +47,14 @@ MainWindow::MainWindow(QWidget *parent) :
      *  after the tag       0.1-10-g23fc        0.1.10
      */
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-    setWindowTitle(QString("%1 (%2)").arg(qApp->applicationName()).arg(QVersionNumber::fromString(QString(VERSION_FROM_GIT_TAG).replace('-','.')).toString()));
+
+    AppVersion = QString(VERSION_FROM_GIT_TAG).replace('-','.');
+    setWindowTitle(QString("%1 (%2)").arg(
+        qApp->applicationName(),
+        QVersionNumber::fromString(AppVersion).toString()));
 #else
-    setWindowTitle(QString("%1 (%2)").arg(qApp->applicationName()).arg(VERSION_FROM_GIT_TAG));
+    AppVersion = VERSION_FROM_GIT_TAG;
+    setWindowTitle(QString("%1 (%2)").arg(qApp->applicationName()).arg(AppVersion));
 #endif
     datamodel = new QStandardItemModel(this);
     datamodel->setColumnCount(4);
@@ -583,6 +588,10 @@ R"(
 <html>
     <p>Movie Thumbnailer for creating thumbnails is frontend of CLI <a href="https://gitlab.com/movie_thumbnailer/mtn/wikis/home/">mtn</a>.</p>
     <p>More details at <a href="https://gitlab.com/movie_thumbnailer/qmtn/wikis/home/">HomePage</a>.</p>
+    <p>Version:
+)"
++AppVersion+
+R"(</p
     <p>Features:
         <ul>
             <li>Drag&drop files and folders</li>
@@ -597,13 +606,6 @@ R"(
     </p>
     <p>
     <code>
-            2017-2022 &lt;<a href=
-)"
-
-+QString("\"mailto:wahibre@gmx.com?Subject=%1\"").arg(windowTitle().toHtmlEscaped())+
-
-R"(
->wahibre@gmx.com</a>&gt;<br>
             Qt Movie Thumbnailer comes with ABSOLUTELY NO WARRANTY.
             This is free software, and you are welcome
             to redistribute it under certain conditions; see <a href="https://www.gnu.org/licenses/gpl.html">GPLv3</a> for details.
@@ -611,8 +613,7 @@ R"(
     </p>
 </html>
             )"
-    );
-
+);
 }
 /******************************************************************************************************/
 void MainWindow::on_actionOpenFile_triggered()

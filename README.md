@@ -24,9 +24,9 @@ Debian/Ubuntu/Mint
 
     sudo apt-get install qt5-default qtbase5-dev qtwebengine5-dev
 
-Fedora/CentOS
+Fedora
 
-    dnf install qt5-qtbase-devel qt5-qtwebengine-devel
+    dnf install qt6-qtbase-devel qt6-qtwebengine-devel
 
 Mageia
 
@@ -61,4 +61,4 @@ Install
 Links
 =====
 * [Qmtn homepage](https://gitlab.com/movie_thumbnailer/qmtn/wikis)
-* [Qt versions support](https://en.wikipedia.org/wiki/Qt_version_history)
+* [Qt versions support](https://wiki.qt.io/Main)

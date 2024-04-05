@@ -47,6 +47,7 @@ class MainWindow : public QMainWindow
     int processingItems;
     ProfileModel *profileModel=Q_NULLPTR;        
     QMap<QString,QStandardItem*> processingDirs;    // directories in last drop
+    QString AppVersion;
 
     /* statusbar widgets */
     QLabel *sColumns, *sRows, *sOutput, *sStep, *sSuffix, *sItemsCnt, *sProfile;
