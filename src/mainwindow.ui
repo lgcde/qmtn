@@ -115,7 +115,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>247</width>
-                <height>253</height>
+                <height>244</height>
                </rect>
               </property>
              </widget>
@@ -168,7 +168,7 @@
      <x>0</x>
      <y>0</y>
      <width>541</width>
-     <height>18</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit">
@@ -179,6 +179,7 @@
     <addaction name="actionUploadToImgmi"/>
     <addaction name="actionUploadToImagevenue"/>
     <addaction name="actionUploadToKlikr"/>
+    <addaction name="actionUploadToHostPic"/>
     <addaction name="action_Settings"/>
    </widget>
    <widget class="QMenu" name="menu_File">
@@ -357,6 +358,24 @@
    </property>
    <property name="toolTip">
     <string>Remove Item from Sidebar</string>
+   </property>
+  </action>
+  <action name="actionUploadToHostPic">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/upload</normaloff>:/upload</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;HostPic.org</string>
+   </property>
+   <property name="toolTip">
+    <string>Upload selected image to www.hostpic.org</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::TextHeuristicRole</enum>
    </property>
   </action>
  </widget>

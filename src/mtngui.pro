@@ -1,6 +1,4 @@
-QT       += core gui network
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui network widgets
 
 TARGET = qmtn
 TEMPLATE = app
@@ -40,11 +38,8 @@ SOURCES += main.cpp\
     iconprovider.cpp \
     settingsdata.cpp \
     profilemodel.cpp \
-    uploaders/imagevenue.cpp \
-    uploaders/imgaa.cpp \
     uploaders/imgup.cpp \
-    uploaders/klikr.cpp \
-    uploaders/imggmi.cpp
+    uploaders/imguphostpic.cpp
 
 HEADERS  += mainwindow.h \
     mtnworker.h \
@@ -55,11 +50,8 @@ HEADERS  += mainwindow.h \
     fileselector.h \
     iconprovider.h \
     profilemodel.h \
-    uploaders/imagevenue.h \
-    uploaders/imgaa.h \
     uploaders/imgup.h \
-    uploaders/klikr.h \
-    uploaders/imggmi.h
+    uploaders/imguphostpic.h
 
 FORMS    += mainwindow.ui \
     settingsdialog.ui

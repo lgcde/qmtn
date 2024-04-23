@@ -122,10 +122,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     if(imgUploadEnabled)
     {
-        ui->actionUploadToImagevenue->setVisible(true);
-        ui->actionUploadToImgaa->setVisible(true);
-        ui->actionUploadToKlikr->setVisible(true);
-        //ui->actionUploadToImgmi->setVisible(false); // protected by cloudflare
+        //ui->actionUploadToImagevenue->setVisible(true); // changed API
+        //ui->actionUploadToImgaa->setVisible(true);      // no anonymous upload available
+        //ui->actionUploadToKlikr->setVisible(true);      // does not exist anymore
+        //ui->actionUploadToImgmi->setVisible(false);     // protected by cloudflare
+        ui->actionUploadToHostPic->setVisible(true);
     }
 
     createStatusBarWidgets();
@@ -212,6 +213,8 @@ void MainWindow::treeContextMenuRequest(const QPoint &pos)
         treeContextMenu->addAction(ui->actionUploadToImagevenue);
     if(ui->actionUploadToKlikr->isVisible())
         treeContextMenu->addAction(ui->actionUploadToKlikr);
+    if(ui->actionUploadToHostPic->isVisible())
+        treeContextMenu->addAction(ui->actionUploadToHostPic);
 
     treeContextMenu->exec(ui->treeView->mapToGlobal(pos));
 }
@@ -249,7 +252,7 @@ void MainWindow::processUrls(QList<QUrl> urls)
                 fileInfo2DirItem(fi);
     }
 
-    qDebug() << "processingDirs: "<<processingDirs;
+    qDebug() << "processing dirs: "<<processingDirs;
 
     updateRecentFileActions();
 
@@ -691,22 +694,27 @@ void MainWindow::updateActionState()
 /******************************************************************************************************/
 void MainWindow::on_actionUploadToImgaa_triggered()
 {
-    uploadImage(new ImgAa(this));
+    //uploadImage(new ImgAa(this));
 }
 /******************************************************************************************************/
 void MainWindow::on_actionUploadToImgmi_triggered()
 {
-    uploadImage(new Imggmi(this));
+    //uploadImage(new Imggmi(this));
 }
 /******************************************************************************************************/
 void MainWindow::on_actionUploadToKlikr_triggered()
 {
-    uploadImage(new Klikr(this));
+    //uploadImage(new Klikr(this));
+}
+/******************************************************************************************************/
+void MainWindow::on_actionUploadToHostPic_triggered()
+{
+    uploadImage(new ImgUpHostPic(this));
 }
 /******************************************************************************************************/
 void MainWindow::on_actionUploadToImagevenue_triggered()
 {
-    uploadImage(new Imagevenue(this));
+    //uploadImage(new Imagevenue(this));
 }
 /******************************************************************************************************/
 void MainWindow::openRecentFile()
@@ -768,4 +776,5 @@ QString MainWindow::strippedName(const QString &fullFileName)
 {
     return QFileInfo(fullFileName).fileName();
 }
-/******************************************************************************************************/
+
+

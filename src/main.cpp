@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include <iostream>
 #include <QTranslator>
+#include <QImageReader>
 
 void stdoutMessageOutput(QtMsgType type, const QMessageLogContext &/*context*/, const QString &msg)
 {
@@ -53,6 +54,9 @@ int main(int argc, char *argv[])
 #endif
     QApplication a(argc, argv);
 
+    //TODO commandline parser for -v|--verbose
+    // print qDebug only with -v opton enabled
+
     QCoreApplication::setOrganizationName("Rusty Pipe");
     QCoreApplication::setApplicationName("Qt Movie Thumbnailer");
 //    QCoreApplication::setApplicationVersion(VERZIA);
@@ -67,6 +71,12 @@ int main(int argc, char *argv[])
     }
 
     QSettings::setDefaultFormat(QSettings::IniFormat);
+
+    if(!QImageReader::supportedImageFormats().contains("svg"))
+    {
+        qWarning() << "SVG image not supported, some of the icons may be missing.";
+        qDebug() << "Supported image formats: " << QImageReader::supportedImageFormats().join(",");
+    }
 
     MainWindow w;
     w.show();

@@ -3,7 +3,7 @@ Description
 
 GUI Thumbnail Generator Using CLI [mtn](https://gitlab.com/movie_thumbnailer/mtn/wikis/home/).
 
-Aplication focuses on quick thumbnails-grid creating using drag&drop.
+Aplication focuses on creating a thumbnails-grid using drag&drop.
 
 Features:
 
@@ -50,7 +50,7 @@ use_webengine - allows to view the upload image result web page
 Build
 =====
     cd qmtn
-    qmake-qt5 src
+    qmake6 src
     make
 
 

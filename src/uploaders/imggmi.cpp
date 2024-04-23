@@ -154,11 +154,10 @@ void Imggmi::showUploadPage(QString pagePath)
     resulPage.setHost(serverName);
     resulPage.setPath(pagePath);
 
-    QString resultLink = resulPage.toString();
-
 #ifdef QT_WEBENGINEWIDGETS_LIB
     webEngine->load(resulPage);
 #else
+    QString resultLink = resulPage.toString();
     auto htmltext = QString("<div align=center><img src=\":/icons/imggmi.png\"><br><h2>Image has been uploaded.</h2><br><a href=\"%1\">%1</a></div>").arg(resultLink);
     webBrowser->setHtml(htmltext);
 #endif
