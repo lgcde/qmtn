@@ -39,6 +39,7 @@ ImgUpHostPic::ImgUpHostPic(QWidget *parent, QString filePath):
 /*****************************************************************************/
 void ImgUpHostPic::postUploadRequest()
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
     QNetworkRequest pagereq;
     QUrl u;
     u.setScheme(serverScheme);
@@ -49,6 +50,9 @@ void ImgUpHostPic::postUploadRequest()
     pagereply = nm->get(pagereq);
     pagereply->ignoreSslErrors();
     connect(pagereply,   &QNetworkReply::finished, this, &ImgUpHostPic::gotPageForCookie);
+#else
+    qDebug() << "Uploading to" << serverName << "requires at least Qt version 5.10";
+#endif
 }
 
 /*****************************************************************************/
@@ -61,7 +65,9 @@ QString ImgUpHostPic::imageNameFromReplyData(QByteArray ReplyData)
     if(splitted.count() == 12)
     {
         //splitted[3] = "'|2404222000110096.jpg'"
+    #if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
         Filename = QString(splitted[3]).mid(2,-1).chopped(1);
+    #endif
     }
     else
     {
@@ -125,7 +131,9 @@ void ImgUpHostPic::sendFile()
 
     //multiPart->setBoundary(boundary);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
     nm->setTransferTimeout(60000);
+#endif
     uploadReply = nm->post(req, multiPart);
     uploadReply->ignoreSslErrors();
     multiPart->setParent(uploadReply);    // delete the multiPart with the reply
