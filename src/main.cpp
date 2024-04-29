@@ -54,9 +54,6 @@ int main(int argc, char *argv[])
 #endif
     QApplication a(argc, argv);
 
-    //TODO commandline parser for -v|--verbose
-    // print qDebug only with -v opton enabled
-
     QCoreApplication::setOrganizationName("Rusty Pipe");
     QCoreApplication::setApplicationName("Qt Movie Thumbnailer");
 //    QCoreApplication::setApplicationVersion(VERZIA);

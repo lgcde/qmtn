@@ -33,6 +33,7 @@ class ImgUpHostPic: public ImgUp
     bool privateUpload;
     QString serverUploadPath, serverViewPath, serverViewQuery;
     QString serverDirectPath;
+    bool gotPhpSession = false;
 
     QString imageNameFromReplyData(QByteArray data);
 public:

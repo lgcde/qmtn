@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ImgUpHostPic::ImgUpHostPic(QWidget *parent, QString filePath):
     ImgUp(parent, filePath)
 {
+    /* www.hostpic.org/gallery.php */
+
     serverScheme="https";
     serverName="www.hostpic.org";
     serverUploadPath = "/inc/uploader.php";
@@ -46,10 +48,20 @@ void ImgUpHostPic::postUploadRequest()
     u.setHost(serverName);
     pagereq.setUrl(u);
 
-    qDebug() << "Uploading to" << serverName << "...";
-    pagereply = nm->get(pagereq);
-    pagereply->ignoreSslErrors();
-    connect(pagereply,   &QNetworkReply::finished, this, &ImgUpHostPic::gotPageForCookie);
+    qDebug() << "Uploading to" << serverName;
+
+    if(gotPhpSession)
+    {
+        sendFile();
+    }
+    else
+    {
+        qDebug() << "Getting session cookies ...";
+
+        pagereply = nm->get(pagereq);
+        pagereply->ignoreSslErrors();
+        connect(pagereply,   &QNetworkReply::finished, this, &ImgUpHostPic::gotPageForCookie);
+    }
 #else
     qDebug() << "Uploading to" << serverName << "requires at least Qt version 5.10";
 #endif
@@ -81,6 +93,8 @@ QString ImgUpHostPic::imageNameFromReplyData(QByteArray ReplyData)
 /*****************************************************************************/
 void ImgUpHostPic::sendFile()
 {
+    qDebug() << "Sending file ...";
+
     QFileInfo fi(imageFilePath);
     const QString fileName = fi.fileName();
     const QString filePath = fi.filePath();
@@ -150,10 +164,16 @@ void ImgUpHostPic::imageUploaded()
         // ReplyData: "<script language='javascript'>parent.upload('','|1551438','','|2404221946590096.jpg','|/home/hostpic.org/public_html/images/2404221946590096.jpg','|https://www.hostpic.org/images/2404221946590096.jpg','|2404221946590096.jpg','|https://www.hostpic.org/images/2404221946590096_tn.jpg','https://www.hostpic.org','https://www.hostpic.org','Host Pic.Org - Free Image Picture Photo Hosting','1');</script>"
         QByteArray ReplyData = reply->readAll();
         QString filename = imageNameFromReplyData(ReplyData);
+
+        //replyStatusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        gotPhpSession = true;
         showUploadPage(filename);
     }
     else
+    {
+        gotPhpSession = false;
         showErr(reply->errorString());
+    }
 
     reply->deleteLater();
 }
@@ -161,12 +181,17 @@ void ImgUpHostPic::imageUploaded()
 /*****************************************************************************/
 void ImgUpHostPic::gotPageForCookie()
 {
+    qDebug() << "Got reply from" << serverName;
     QNetworkReply *reply = pagereply;
 
     if(reply->error() == QNetworkReply::NoError)
         sendFile();
     else
+    {
+        gotPhpSession = false;
+        qDebug() << reply->errorString();
         showErr(reply->errorString());
+    }
 
     reply->deleteLater();
 }
