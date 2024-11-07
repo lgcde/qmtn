@@ -53,14 +53,14 @@ SettingsData::SettingsData(QJsonObject obj)
     timestamp           = obj[REG_TIMESTAMP         ].toBool(true);
 
 #if (QT_VERSION < QT_VERSION_CHECK(6, 6, 0))
-    background.setNamedColor(   obj[REG_BACKGROUND].toString(QColor(Qt::black).name()));
-    foreground.setNamedColor(   obj[REG_FOREGROUND].toString(QColor(Qt::white).name()));
-    timecolor.setNamedColor (   obj[REG_TIMECOLOR ].toString(QColor(Qt::black).name()));
+    background.setNamedColor(   obj[REG_BACKGROUND].toString(QColor(Qt::white).name()));
+    foreground.setNamedColor(   obj[REG_FOREGROUND].toString(QColor(Qt::black).name()));
+    timecolor.setNamedColor (   obj[REG_TIMECOLOR ].toString(QColor(Qt::white).name()));
     timeshadow.setNamedColor(   obj[REG_TIMESHADOW].toString(QColor(Qt::gray).name()));
 #else
-    background = QColor::fromString(obj[REG_BACKGROUND].toString(QColor(Qt::black).name()));
-    foreground = QColor::fromString(obj[REG_FOREGROUND].toString(QColor(Qt::white).name()));
-    timecolor  = QColor::fromString(obj[REG_TIMECOLOR ].toString(QColor(Qt::black).name()));
+    background = QColor::fromString(obj[REG_BACKGROUND].toString(QColor(Qt::white).name()));
+    foreground = QColor::fromString(obj[REG_FOREGROUND].toString(QColor(Qt::black).name()));
+    timecolor  = QColor::fromString(obj[REG_TIMECOLOR ].toString(QColor(Qt::white).name()));
     timeshadow = QColor::fromString(obj[REG_TIMESHADOW].toString(QColor(Qt::gray).name()));
 #endif
 
