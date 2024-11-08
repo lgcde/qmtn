@@ -12,6 +12,7 @@ Vcs-Bzr: lp:wahibre/qmtn
 Package: qmtn
 Architecture: any
 Depends: ${shlibs:Depends}, 
-         ${misc:Depends}
+         ${misc:Depends},
+         qt5-image-formats-plugins
 Description: Qt Movie Thumbnailer - screens generator
  GUI for mtn (Movie Thumbnailer).
