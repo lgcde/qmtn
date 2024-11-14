@@ -20,11 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mtnworker.h"
 #include "profilemodel.h"
-//#include "imagevenue.h"
-//#include "imgaa.h"
-//#include "imggmi.h"
-//#include "klikr.h"
 #include "imguphostpic.h"
+#include "imgpi.h"
 
 #include <QMainWindow>
 #include <QTreeWidgetItem>
@@ -89,8 +86,8 @@ private slots:
     void on_actionUploadToImgaa_triggered();
     void on_actionUploadToKlikr_triggered();
     void on_actionRemoveItemfromSidebar_triggered();
-
     void on_actionUploadToHostPic_triggered();
+    void on_actionUploadToPostImages_triggered();
 
 private:
     Ui::MainWindow *ui;

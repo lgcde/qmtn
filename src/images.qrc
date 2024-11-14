@@ -27,6 +27,7 @@
         <file>../icons/imggmi.png</file>
         <file>../icons/imagevenue.png</file>
         <file>../icons/hostpic.jpg</file>
+        <file>../icons/postimgs.png</file>
         <file>../lang/sk.qm</file>
     </qresource>
 </RCC>

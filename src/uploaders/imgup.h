@@ -44,6 +44,7 @@ protected:
     QString imageFilePath;
     QString serverName;
     QString serverScheme;
+    QString serverPath;
     QNetworkAccessManager *nm;
     QNetworkReply *uploadReply;
 #ifdef QT_WEBENGINEWIDGETS_LIB

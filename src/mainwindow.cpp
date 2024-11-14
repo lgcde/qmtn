@@ -127,6 +127,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //ui->actionUploadToKlikr->setVisible(true);      // does not exist anymore
         //ui->actionUploadToImgmi->setVisible(false);     // protected by cloudflare
         ui->actionUploadToHostPic->setVisible(true);
+        ui->actionUploadToPostImages->setVisible(true);
     }
 
     createStatusBarWidgets();
@@ -215,6 +216,8 @@ void MainWindow::treeContextMenuRequest(const QPoint &pos)
         treeContextMenu->addAction(ui->actionUploadToKlikr);
     if(ui->actionUploadToHostPic->isVisible())
         treeContextMenu->addAction(ui->actionUploadToHostPic);
+    if(ui->actionUploadToPostImages->isVisible())
+        treeContextMenu->addAction(ui->actionUploadToPostImages);
 
     treeContextMenu->exec(ui->treeView->mapToGlobal(pos));
 }
@@ -717,6 +720,11 @@ void MainWindow::on_actionUploadToImagevenue_triggered()
     //uploadImage(new Imagevenue(this));
 }
 /******************************************************************************************************/
+void MainWindow::on_actionUploadToPostImages_triggered()
+{
+    uploadImage(new ImgPI(this));
+}
+/******************************************************************************************************/
 void MainWindow::openRecentFile()
 {
     QAction *action = qobject_cast<QAction *>(sender());
@@ -776,5 +784,4 @@ QString MainWindow::strippedName(const QString &fullFileName)
 {
     return QFileInfo(fullFileName).fileName();
 }
-
-
+/******************************************************************************************************/

@@ -38,6 +38,7 @@ SOURCES += main.cpp\
     iconprovider.cpp \
     settingsdata.cpp \
     profilemodel.cpp \
+    uploaders/imgpi.cpp \
     uploaders/imgup.cpp \
     uploaders/imguphostpic.cpp
 
@@ -50,6 +51,7 @@ HEADERS  += mainwindow.h \
     fileselector.h \
     iconprovider.h \
     profilemodel.h \
+    uploaders/imgpi.h \
     uploaders/imgup.h \
     uploaders/imguphostpic.h
 
