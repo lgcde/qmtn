@@ -15,15 +15,17 @@ qt6:
         paths:
         - ./qmtn
 qt5:
-    image: centos:7
+    image: debian:11
     stage: build
     before_script:
-    - yum -y install gcc-c++ qt5-qtbase-devel make
+    - apt-get update
+    - apt-get install -y g++ qtbase5-dev qtwebengine5-dev
     script:
-    - qmake-qt5 src
-    - make
+    - qmake CONFIG+=use_webengine src
+    - make -j2
     artifacts:
         name: qmtn-$CI_JOB_NAME
         expire_in: 4 week
         paths:
         - ./qmtn
+
