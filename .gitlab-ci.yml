@@ -19,7 +19,7 @@ qt5:
     stage: build
     before_script:
     - apt-get update
-    - apt-get install -y g++ qtbase5-dev qtwebengine5-dev
+    - apt-get install -y g++ make qtbase5-dev qtwebengine5-dev
     script:
     - qmake CONFIG+=use_webengine src
     - make -j2
