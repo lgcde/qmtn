@@ -29,7 +29,7 @@ unix: INSTALLS += ikona desktop
 INCLUDEPATH += uploaders
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     mtnworker.cpp \
     mtnjob.cpp \
     imageitemview.cpp \
@@ -37,12 +37,10 @@ SOURCES += main.cpp\
     fileselector.cpp \
     iconprovider.cpp \
     settingsdata.cpp \
-    profilemodel.cpp \
-    uploaders/imgpi.cpp \
-    uploaders/imgup.cpp \
-    uploaders/imguphostpic.cpp
+    profilemodel.cpp
 
 HEADERS  += mainwindow.h \
+    plugins/interfaces.h \
     mtnworker.h \
     mtnjob.h \
     imageitemview.h \
@@ -50,10 +48,7 @@ HEADERS  += mainwindow.h \
     settingsdata.h \
     fileselector.h \
     iconprovider.h \
-    profilemodel.h \
-    uploaders/imgpi.h \
-    uploaders/imgup.h \
-    uploaders/imguphostpic.h
+    profilemodel.h
 
 FORMS    += mainwindow.ui \
     settingsdialog.ui

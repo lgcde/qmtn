@@ -6,7 +6,7 @@ export QT_SELECT=5
 	dh $@
 
 override_dh_auto_configure:
-	qmake CONFIG+=use_webengine src
+	qmake src
 
 override_dh_auto_install:
 

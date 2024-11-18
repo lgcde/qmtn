@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class ProfileModel : public QAbstractItemModel
 {
+    Q_OBJECT
+
 public:
     ProfileModel(QObject *parent);
     ~ProfileModel();

@@ -494,19 +494,6 @@
     </message>
 </context>
 <context>
-    <name>ImgUp</name>
-    <message>
-        <location filename="../src/uploaders/imgup.cpp" line="60"/>
-        <source>File &apos;%1&apos; not found!</source>
-        <translation>Súbor &apos;%1&apos; nenájdený!</translation>
-    </message>
-    <message>
-        <location filename="../src/uploaders/imgup.cpp" line="65"/>
-        <source>Error</source>
-        <translation>Chyba</translation>
-    </message>
-</context>
-<context>
     <name>MainWindow</name>
     <message>
         <location filename="../src/mainwindow.ui" line="17"/>
@@ -539,262 +526,212 @@
         <translation>&amp;Úpravy</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="187"/>
+        <location filename="../src/mainwindow.ui" line="182"/>
         <source>&amp;File</source>
         <translation>&amp;Súbor</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="197"/>
-        <location filename="../src/mainwindow.ui" line="256"/>
+        <location filename="../src/mainwindow.ui" line="192"/>
+        <location filename="../src/mainwindow.ui" line="251"/>
         <source>&amp;About</source>
-        <translation>&amp;O ...</translation>
+        <translation>&amp;O Qmtn</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="208"/>
+        <location filename="../src/mainwindow.ui" line="203"/>
         <source>Toolbar</source>
         <translation>Nástroje</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="232"/>
+        <location filename="../src/mainwindow.ui" line="227"/>
         <source>&amp;Settings ...</source>
         <translation>&amp;Nastavenia ...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="235"/>
+        <location filename="../src/mainwindow.ui" line="230"/>
         <source>F10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="240"/>
+        <location filename="../src/mainwindow.ui" line="235"/>
         <source>&amp;Quit</source>
         <translation>&amp;Ukončiť</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="243"/>
+        <location filename="../src/mainwindow.ui" line="238"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="248"/>
+        <location filename="../src/mainwindow.ui" line="243"/>
         <source>About &amp;Qt</source>
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="251"/>
+        <location filename="../src/mainwindow.ui" line="246"/>
         <source>Ctrl+F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="259"/>
+        <location filename="../src/mainwindow.ui" line="254"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="264"/>
+        <location filename="../src/mainwindow.ui" line="259"/>
         <source>Open &amp;File ...</source>
         <translation>Otvoriť &amp;súbor ...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="267"/>
+        <location filename="../src/mainwindow.ui" line="262"/>
         <source>Open Video File</source>
         <translation>Otvoriť súbor videa</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="270"/>
+        <location filename="../src/mainwindow.ui" line="265"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="275"/>
+        <location filename="../src/mainwindow.ui" line="270"/>
         <source>Open &amp;Directory ...</source>
         <translation>Otvoriť &amp;priečinok ...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="278"/>
+        <location filename="../src/mainwindow.ui" line="273"/>
         <source>Open Directory containing Video Files</source>
         <translation>Otvoriť priečinok obsahujúci video súbory</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="281"/>
+        <location filename="../src/mainwindow.ui" line="276"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="286"/>
-        <location filename="../src/mainwindow.cpp" line="204"/>
-        <location filename="../src/mainwindow.cpp" line="206"/>
+        <location filename="../src/mainwindow.ui" line="281"/>
+        <location filename="../src/mainwindow.cpp" line="184"/>
+        <location filename="../src/mainwindow.cpp" line="186"/>
         <source>&amp;Recreate Thumbnail</source>
         <translation>&amp;Vytvoriť obrázok</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="289"/>
+        <location filename="../src/mainwindow.ui" line="284"/>
         <source>Recreate Thumbnail</source>
         <translation>Vytvoriť obrázok</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="292"/>
+        <location filename="../src/mainwindow.ui" line="287"/>
         <source>F5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="301"/>
-        <source>&amp;Imggmi</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="304"/>
-        <source>Upload selected image to www.imgmi.com</source>
-        <translation>Nahrať vybraný obrázok na www.imgmi.com</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="316"/>
-        <source>&amp;Imagevenue</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="319"/>
-        <source>Upload selected image to www.imagevenue.com</source>
-        <translation>Nahrať vybraný obrázok na www.imagevenue.com</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="331"/>
-        <source>&amp;Imgaa</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="334"/>
-        <source>Upload selected image to www.imgaa.com</source>
-        <translation>Nahrať vybraný obrázok na www.imgaa.com</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="346"/>
-        <source>&amp;Klikr</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="349"/>
-        <source>Upload selected image to www.klikr.org</source>
-        <translation>Nahrať vybraný obrázok na www.klikr.org</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="357"/>
+        <location filename="../src/mainwindow.ui" line="292"/>
         <source>Remove &amp;Item</source>
         <translation>Odobrať &amp;položku</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="360"/>
+        <location filename="../src/mainwindow.ui" line="295"/>
         <source>Remove Item from Sidebar</source>
         <translation>Odobrať položku z panela</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="369"/>
-        <source>&amp;HostPic.org</source>
-        <translation>&amp;HostPic.org</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.ui" line="372"/>
-        <source>Upload selected image to www.hostpic.org</source>
-        <translation>Nahrať vybraný obrázok na www.hostpic.org</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="161"/>
+        <location filename="../src/mainwindow.cpp" line="141"/>
         <source>Display labels</source>
         <translation>Zobratiť popisy</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="193"/>
+        <location filename="../src/mainwindow.cpp" line="173"/>
         <source>Open &amp;Directory</source>
         <translation>Otvoriť &amp;priečinok</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="196"/>
-        <location filename="../src/mainwindow.cpp" line="198"/>
+        <location filename="../src/mainwindow.cpp" line="176"/>
+        <location filename="../src/mainwindow.cpp" line="178"/>
         <source>Open &amp;Movie</source>
         <translation>Spustiť &amp;film</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="201"/>
+        <location filename="../src/mainwindow.cpp" line="181"/>
         <source>&amp;Expand all</source>
         <translation>&amp;Rozložiť všetky</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="202"/>
+        <location filename="../src/mainwindow.cpp" line="182"/>
         <source>&amp;Collapse all</source>
         <translation>&amp;Zložiť všetky</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="549"/>
+        <location filename="../src/mainwindow.cpp" line="529"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="530"/>
+        <location filename="../src/mainwindow.cpp" line="510"/>
         <source>Overwrite</source>
         <translation>Prepísať</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="550"/>
+        <location filename="../src/mainwindow.cpp" line="530"/>
         <source>Columns</source>
         <translation>Stĺpcov</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="552"/>
+        <location filename="../src/mainwindow.cpp" line="532"/>
         <source>Step</source>
         <translation>Krok</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="555"/>
+        <location filename="../src/mainwindow.cpp" line="535"/>
         <source>Rows</source>
         <translation>Riadkov</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="558"/>
+        <location filename="../src/mainwindow.cpp" line="538"/>
         <source>Output</source>
         <translation>Výstup</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="561"/>
+        <location filename="../src/mainwindow.cpp" line="541"/>
         <source>Suffix</source>
         <translation>Prípona</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="569"/>
+        <location filename="../src/mainwindow.cpp" line="549"/>
         <source>Processing items</source>
         <translation>Spracúvam položky</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="584"/>
+        <location filename="../src/mainwindow.cpp" line="564"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="589"/>
+        <location filename="../src/mainwindow.cpp" line="569"/>
         <source>About...</source>
         <translation>O ...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="672"/>
+        <location filename="../src/mainwindow.cpp" line="741"/>
         <source>Question</source>
         <translation>Otázka</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="672"/>
+        <location filename="../src/mainwindow.cpp" line="742"/>
         <source>Dou you want to upload file &apos;%1&apos; to &apos;%2&apos;?</source>
         <translation>Naozaj chcete nahrať súbor &apos;%1&apos; na &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="676"/>
-        <location filename="../src/mainwindow.cpp" line="679"/>
+        <location filename="../src/mainwindow.cpp" line="751"/>
+        <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Information</source>
         <translation>Informácia</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="676"/>
+        <location filename="../src/mainwindow.cpp" line="751"/>
         <source>Select a movie item</source>
         <translation>Vyberte video</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="679"/>
+        <location filename="../src/mainwindow.cpp" line="754"/>
         <source>Nothing to upload</source>
         <translation>Nie je čo nahrať</translation>
     </message>
@@ -830,12 +767,12 @@
         <translation>Neznáma chyba načítavania nastavení!</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="329"/>
+        <location filename="../src/settingsdialog.cpp" line="324"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="330"/>
+        <location filename="../src/settingsdialog.cpp" line="325"/>
         <source>Error loading settings!</source>
         <translation>Chyba načítania nastavení!</translation>
     </message>
@@ -843,43 +780,43 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="172"/>
+        <location filename="../src/settingsdialog.cpp" line="167"/>
         <source>Output directory</source>
         <translation>Cieľový priečinok</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="253"/>
+        <location filename="../src/settingsdialog.cpp" line="248"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="253"/>
+        <location filename="../src/settingsdialog.cpp" line="248"/>
         <source>Name:</source>
         <translation>Názov:</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="273"/>
+        <location filename="../src/settingsdialog.cpp" line="268"/>
         <source>Delete profile</source>
         <translation>Zmazať profil</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="273"/>
+        <location filename="../src/settingsdialog.cpp" line="268"/>
         <source>Do you really want to remove &quot;%1&quot;?</source>
         <translation>Naozaj chcete zmazať &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="286"/>
+        <location filename="../src/settingsdialog.cpp" line="281"/>
         <source>Save File</source>
         <translation>Uložiť súbor</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="288"/>
-        <location filename="../src/settingsdialog.cpp" line="307"/>
+        <location filename="../src/settingsdialog.cpp" line="283"/>
+        <location filename="../src/settingsdialog.cpp" line="302"/>
         <source>JSON (*.json)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="305"/>
+        <location filename="../src/settingsdialog.cpp" line="300"/>
         <source>Open File</source>
         <translation>Otvoriť súbor</translation>
     </message>

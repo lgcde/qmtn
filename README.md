@@ -20,17 +20,18 @@ Features:
 
 Dependencies
 ============
+
 Debian/Ubuntu/Mint
 
-    sudo apt-get install qt5-default qtbase5-dev qtwebengine5-dev
+    sudo apt-get install qt5-default qtbase5-dev
 
 Fedora
 
-    dnf install qt6-qtbase-devel qt6-qtwebengine-devel
+    dnf install qt6-qtbase-devel
 
 Mageia
 
-    sudo dnf install lib64qt5webengine-devel
+    sudo dnf install qtbase6-common-devel
 
 Get source
 ==========
@@ -40,15 +41,17 @@ Get source
 
 Configuration
 =============
+
 Optional Qt configuration:
 
 use_git_version - gets the version number based on git tag  
-use_webengine - allows to view the upload image result web page  
+use_webengine - may be useful for plugins for uploading images
 
     CONFIG += use_git_version use_webengine
 
 Build
 =====
+
     cd qmtn
     qmake6 src
     make
@@ -56,9 +59,11 @@ Build
 
 Install
 =======
+
     sudo make install
 
 Links
 =====
+
 * [Qmtn homepage](https://gitlab.com/movie_thumbnailer/qmtn/wikis)
 * [Qt versions support](https://wiki.qt.io/Main)

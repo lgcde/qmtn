@@ -20,8 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mtnworker.h"
 #include "profilemodel.h"
-#include "imguphostpic.h"
-#include "imgpi.h"
+#include "plugins/interfaces.h"
 
 #include <QMainWindow>
 #include <QTreeWidgetItem>
@@ -46,6 +45,7 @@ class MainWindow : public QMainWindow
     ProfileModel *profileModel=Q_NULLPTR;        
     QMap<QString,QStandardItem*> processingDirs;    // directories in last drop
     QString AppVersion;
+    QString pluginsLocation;
 
     /* statusbar widgets */
     QLabel *sColumns, *sRows, *sOutput, *sStep, *sSuffix, *sItemsCnt, *sProfile;
@@ -53,6 +53,7 @@ class MainWindow : public QMainWindow
 
     int maxRecentFiles;
     QList<QAction*> recentFileActs;
+    QList<QAction*> pluginActions;
     QStringList recentFiles;
     QAction *separatorAct;
 
@@ -74,6 +75,8 @@ private slots:
     void recreateThumbnail();
     void changedProcessingItemsNumber(int delta);
     void openRecentFile();
+    void pluginTriggered();
+    void pluginFinished(bool success);
 
     void on_action_Settings_triggered();
     void on_actionAboutQt_triggered();
@@ -81,13 +84,7 @@ private slots:
     void on_actionOpenFile_triggered();
     void on_actionOpenDirectory_triggered();
     void on_actionRefreshThumbnail_triggered();
-    void on_actionUploadToImgmi_triggered();
-    void on_actionUploadToImagevenue_triggered();
-    void on_actionUploadToImgaa_triggered();
-    void on_actionUploadToKlikr_triggered();
     void on_actionRemoveItemfromSidebar_triggered();
-    void on_actionUploadToHostPic_triggered();
-    void on_actionUploadToPostImages_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -111,8 +108,10 @@ private:
     void refreshStatusBar();
     void processUrls(QList<QUrl> urls);
     QString strippedName(const QString &fullFileName);
-    void uploadImage(ImgUp *imgUp);
     void updateActionState();
+    void loadPlugins();
+    void addPluginToMenu(QObject *plugin, QString text);
+    void showPluginResult(QWidget *parent, ImageProcessInteface *i);
 };
 
 #endif // MAINWINDOW_H

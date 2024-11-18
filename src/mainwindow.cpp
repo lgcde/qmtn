@@ -24,9 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QToolBar>
+#include <QPluginLoader>
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 #include <QVersionNumber>
 #include <QDebug>
+#endif
+#ifdef QT_WEBENGINEWIDGETS_LIB
+#include <QtWebEngineWidgets>
 #endif
 #include "mainwindow.h"
 #include "settingsdialog.h"
@@ -104,37 +108,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->splitter->restoreState(s.value("mainform/splitter").toByteArray());
     recentFiles = s.value("recentFiles").toStringList();
     maxRecentFiles = s.value("MaxRecentFiles", 5).toInt();
+    pluginsLocation = s.value("plugins/location").toString();
     ui->mainToolBar->setToolButtonStyle(
                 static_cast<Qt::ToolButtonStyle>(s.value("mainform/toolbarlabels", Qt::ToolButtonTextBesideIcon).toInt()));
-
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
-
-    bool envIsSet = false;
-    int envImgUpload = 0;
-
-    envImgUpload = qEnvironmentVariableIntValue("QMTN_ENABLE_IMG_UPLOAD", &envIsSet);
-
-    bool imgUploadEnabled = (envIsSet && envImgUpload == 1);
-#else
-    bool imgUploadEnabled = false;
-#endif
-
-    if(imgUploadEnabled)
-    {
-        //ui->actionUploadToImagevenue->setVisible(true); // changed API
-        //ui->actionUploadToImgaa->setVisible(true);      // no anonymous upload available
-        //ui->actionUploadToKlikr->setVisible(true);      // does not exist anymore
-        //ui->actionUploadToImgmi->setVisible(false);     // protected by cloudflare
-        ui->actionUploadToHostPic->setVisible(true);
-        ui->actionUploadToPostImages->setVisible(true);
-    }
 
     createStatusBarWidgets();
     createRecentFiles();
     createRecentMenu();
     refreshStatusBar();
     updateActionState();
+    loadPlugins();
 }
 /******************************************************************************************************/
 MainWindow::~MainWindow()
@@ -206,18 +189,16 @@ void MainWindow::treeContextMenuRequest(const QPoint &pos)
 #else
     treeContextMenu->addAction(IconProvider::refresh(), tr("&Recreate Thumbnail"),  this, SLOT(recreateThumbnail()),    Qt::Key_F5/*to generate hint*/);
 #endif
-    if(ui->actionUploadToImgaa->isVisible())
-        treeContextMenu->addAction(ui->actionUploadToImgaa);
-    if(ui->actionUploadToImgmi->isVisible())
-        treeContextMenu->addAction(ui->actionUploadToImgmi);
-    if(ui->actionUploadToImagevenue->isVisible())
-        treeContextMenu->addAction(ui->actionUploadToImagevenue);
-    if(ui->actionUploadToKlikr->isVisible())
-        treeContextMenu->addAction(ui->actionUploadToKlikr);
-    if(ui->actionUploadToHostPic->isVisible())
-        treeContextMenu->addAction(ui->actionUploadToHostPic);
-    if(ui->actionUploadToPostImages->isVisible())
-        treeContextMenu->addAction(ui->actionUploadToPostImages);
+
+
+    if(pluginActions.count() > 0)
+    {
+        treeContextMenu->addSeparator();
+
+        foreach (auto a, pluginActions) {
+            treeContextMenu->addAction(a);
+        }
+    }
 
     treeContextMenu->exec(ui->treeView->mapToGlobal(pos));
 }
@@ -658,31 +639,6 @@ void MainWindow::on_actionRemoveItemfromSidebar_triggered()
     }
 }
 /******************************************************************************************************/
-void MainWindow::uploadImage(ImgUp *imgUp)
-{
-    if(datamodel->rowCount()>0)
-    {
-        auto selectedIndex = ui->treeView->currentIndex();
-
-        QString imageFileName = selectedIndex.sibling(
-                    selectedIndex.row(),
-                    columnItemNames::output
-                    ).data().toString();
-
-        if(!imageFileName.isEmpty())
-        {
-            imgUp->setImagePath(imageFileName);
-            if(QMessageBox::question(this, tr("Question"), tr("Dou you want to upload file '%1' to '%2'?").arg(imageFileName, imgUp->hostName())) == QMessageBox::Yes)
-                imgUp->upload();
-        }
-        else
-            QMessageBox::information(this, tr("Information"), tr("Select a movie item"));
-    }
-    else
-        QMessageBox::information(this, tr("Information"), tr("Nothing to upload"));
-}
-
-/******************************************************************************************************/
 void MainWindow::updateActionState()
 {
     bool allowed = (
@@ -695,34 +651,74 @@ void MainWindow::updateActionState()
     ui->actionRefreshThumbnail->setEnabled(allowed);
 }
 /******************************************************************************************************/
-void MainWindow::on_actionUploadToImgaa_triggered()
+void MainWindow::loadPlugins()
 {
-    //uploadImage(new ImgAa(this));
+    if(pluginsLocation.isEmpty())
+        return;
+
+    QDir pluginsDir(pluginsLocation);
+
+    if(pluginsDir.exists())
+    {
+        foreach(QString fileName, pluginsDir.entryList(QDir::Files))
+        {
+            QString pluginFileName = pluginsDir.absoluteFilePath(fileName);
+            QPluginLoader loader(pluginFileName);
+
+            QObject *plugin = loader.instance();
+
+            if(plugin)
+            {
+                qDebug() << "plugin loaded:" << fileName;
+
+                ImageProcessInteface *uploader = qobject_cast<ImageProcessInteface *>(plugin);
+                if(uploader)
+                {
+                    addPluginToMenu(plugin, uploader->Name());
+                    connect(dynamic_cast<QObject*>(uploader),
+                            SIGNAL(finished(bool)), this,
+                            SLOT(pluginFinished(bool)));
+                }
+            }
+            else
+                qDebug() << loader.errorString();
+        }
+    }
 }
 /******************************************************************************************************/
-void MainWindow::on_actionUploadToImgmi_triggered()
+void MainWindow::addPluginToMenu(QObject *plugin, QString text)
 {
-    //uploadImage(new Imggmi(this));
+    if(pluginActions.count() == 0)
+        ui->menu_Edit->addSeparator();
+
+    QAction *action = new QAction(QIcon(":upload"), text, plugin);
+    connect(action, &QAction::triggered, this, &MainWindow::pluginTriggered);
+
+    ui->menu_Edit->addAction(action);
+    pluginActions << action;
 }
 /******************************************************************************************************/
-void MainWindow::on_actionUploadToKlikr_triggered()
+void MainWindow::showPluginResult(QWidget *parent, ImageProcessInteface *i)
 {
-    //uploadImage(new Klikr(this));
-}
-/******************************************************************************************************/
-void MainWindow::on_actionUploadToHostPic_triggered()
-{
-    uploadImage(new ImgUpHostPic(this));
-}
-/******************************************************************************************************/
-void MainWindow::on_actionUploadToImagevenue_triggered()
-{
-    //uploadImage(new Imagevenue(this));
-}
-/******************************************************************************************************/
-void MainWindow::on_actionUploadToPostImages_triggered()
-{
-    uploadImage(new ImgPI(this));
+    auto dlg = new QDialog(this);
+    auto layout = new QHBoxLayout(dlg);
+#ifdef QT_WEBENGINEWIDGETS_LIB
+    auto webEngine = new QWebEngineView(dlg);
+    layout->addWidget(webEngine);
+    webEngine->load(i->getResultUrl());
+#else
+    auto webBrowser = new QTextEdit(this);
+    webBrowser->setReadOnly(true);
+    layout->addWidget(webBrowser);
+    webBrowser->setHtml(i->getResultPage());
+#endif
+    dlg->setLayout(layout);
+    dlg->setAttribute(Qt::WA_DeleteOnClose);
+
+    dlg->setWindowTitle(i->Name());
+    dlg->setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
+    dlg->resize(parent->size() * 0.8);
+    dlg->show();
 }
 /******************************************************************************************************/
 void MainWindow::openRecentFile()
@@ -731,6 +727,51 @@ void MainWindow::openRecentFile()
     if (action)
         processUrls({QUrl::fromLocalFile(action->data().toString())});
 
+}
+/******************************************************************************************************/
+void MainWindow::pluginTriggered()
+{
+    if(datamodel->rowCount()>0)
+    {
+        auto selectedIndex = ui->treeView->currentIndex();
+
+        QString imageFileName = selectedIndex.sibling(
+                    selectedIndex.row(),
+                    columnItemNames::output
+                    ).data().toString();
+
+        if(!imageFileName.isEmpty())
+        {
+            auto pluginAction = qobject_cast<QAction*>(sender());
+            auto iPlugin = qobject_cast<ImageProcessInteface*>(pluginAction->parent());
+            if(iPlugin)
+            {
+                if(QMessageBox::question(this, tr("Question"),
+                                     tr("Dou you want to upload file '%1' to '%2'?")
+                                     .arg(imageFileName, iPlugin->Name())) == QMessageBox::Yes)
+                {
+                    qDebug() << "Running plugin:" << iPlugin->Name();
+                    iPlugin->process(imageFileName);
+                }
+            }
+        }
+        else
+            QMessageBox::information(this, tr("Information"), tr("Select a movie item"));
+    }
+    else
+        QMessageBox::information(this, tr("Information"), tr("Nothing to upload"));
+
+}
+/******************************************************************************************************/
+void MainWindow::pluginFinished(bool success)
+{
+    auto plugin = qobject_cast<ImageProcessInteface*>(sender());
+    qDebug() << "success: " << success;
+
+    if(success)
+        showPluginResult(this, plugin);
+    else
+        QMessageBox::critical(this, plugin->Name(), plugin->getErrText());
 }
 /******************************************************************************************************/
 void MainWindow::updateRecentFileActions()

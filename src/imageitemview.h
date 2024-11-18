@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class ImageItemView : public QScrollArea
 {
+    Q_OBJECT
+
     QWidget *dockParentWidget;
     QRect dockGeometry;
     QItemSelectionModel *m_model;
