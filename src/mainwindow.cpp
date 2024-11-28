@@ -669,7 +669,7 @@ void MainWindow::loadPlugins()
 
             if(plugin)
             {
-                qDebug() << "plugin loaded:" << fileName;
+                qDebug() << "plugin loaded:" << pluginFileName;
 
                 ImageProcessInteface *uploader = qobject_cast<ImageProcessInteface *>(plugin);
                 if(uploader)

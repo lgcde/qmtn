@@ -41,12 +41,12 @@ public:
     ///
     virtual QString getErrText() = 0;
 
-    // signals:
+signals:
     ///
     /// \brief This signal is emitted whenever processing file is finished
     /// \param success - true if processing file was successful
     ///
-    // void finished(bool success);
+    void finished(bool success);
 };
 
 Q_DECLARE_INTERFACE(ImageProcessInteface, "org.rustypipe.qmtn/1.0")

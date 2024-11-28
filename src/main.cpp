@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <QTranslator>
 #include <QImageReader>
+#include <QDebug>
 
 void stdoutMessageOutput(QtMsgType type, const QMessageLogContext &/*context*/, const QString &msg)
 {
