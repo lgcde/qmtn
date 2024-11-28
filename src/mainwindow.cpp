@@ -182,8 +182,8 @@ void MainWindow::treeContextMenuRequest(const QPoint &pos)
     treeContextMenu->addAction(IconProvider::video(),   tr("Open &Movie"),          this, SLOT(treeOpenMovie()),        Qt::Key_F3);
 #endif
     treeContextMenu->addAction(ui->actionRemoveItemfromSidebar);
-    treeContextMenu->addAction(IconProvider::zoomIn(),  tr("&Expand all"),          ui->treeView, SLOT(expandAll())     );
-    treeContextMenu->addAction(IconProvider::zoomOut(), tr("&Collapse all"),        ui->treeView, SLOT(collapseAll())   );
+    treeContextMenu->addAction(IconProvider::plus(),  tr("&Expand all"),          ui->treeView, SLOT(expandAll())     );
+    treeContextMenu->addAction(IconProvider::minus(), tr("&Collapse all"),        ui->treeView, SLOT(collapseAll())   );
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
     treeContextMenu->addAction(IconProvider::refresh(), tr("&Recreate Thumbnail"),  Qt::Key_F5/*to generate hint*/,     this, SLOT(recreateThumbnail()));
 #else

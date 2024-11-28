@@ -42,6 +42,8 @@ public:
     static QIcon zoomFit();
     static QIcon fullScreen();
     static QIcon qt();
+    static QIcon plus();
+    static QIcon minus();
 };
 
 #endif // ICONPROVIDER_H

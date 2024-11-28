@@ -187,7 +187,7 @@
                 </property>
                 <property name="icon">
                  <iconset resource="images.qrc">
-                  <normaloff>:/icons/delete.png</normaloff>:/icons/delete.png</iconset>
+                  <normaloff>:/icons/delete.svg</normaloff>:/icons/delete.svg</iconset>
                 </property>
                </widget>
               </item>

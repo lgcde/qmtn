@@ -608,15 +608,15 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="281"/>
-        <location filename="../src/mainwindow.cpp" line="184"/>
-        <location filename="../src/mainwindow.cpp" line="186"/>
+        <location filename="../src/mainwindow.cpp" line="188"/>
+        <location filename="../src/mainwindow.cpp" line="190"/>
         <source>&amp;Recreate Thumbnail</source>
-        <translation>&amp;Vytvoriť obrázok</translation>
+        <translation>&amp;Obnoviť obrázok</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="284"/>
         <source>Recreate Thumbnail</source>
-        <translation>Vytvoriť obrázok</translation>
+        <translation>Obnoviť obrázok</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="287"/>
@@ -634,104 +634,104 @@
         <translation>Odobrať položku z panela</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="141"/>
+        <location filename="../src/mainwindow.cpp" line="145"/>
         <source>Display labels</source>
         <translation>Zobratiť popisy</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="173"/>
+        <location filename="../src/mainwindow.cpp" line="177"/>
         <source>Open &amp;Directory</source>
         <translation>Otvoriť &amp;priečinok</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="176"/>
-        <location filename="../src/mainwindow.cpp" line="178"/>
+        <location filename="../src/mainwindow.cpp" line="180"/>
+        <location filename="../src/mainwindow.cpp" line="182"/>
         <source>Open &amp;Movie</source>
         <translation>Spustiť &amp;film</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="181"/>
+        <location filename="../src/mainwindow.cpp" line="185"/>
         <source>&amp;Expand all</source>
         <translation>&amp;Rozložiť všetky</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="182"/>
+        <location filename="../src/mainwindow.cpp" line="186"/>
         <source>&amp;Collapse all</source>
         <translation>&amp;Zložiť všetky</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="529"/>
+        <location filename="../src/mainwindow.cpp" line="533"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="510"/>
+        <location filename="../src/mainwindow.cpp" line="514"/>
         <source>Overwrite</source>
         <translation>Prepísať</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="530"/>
+        <location filename="../src/mainwindow.cpp" line="534"/>
         <source>Columns</source>
         <translation>Stĺpcov</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="532"/>
+        <location filename="../src/mainwindow.cpp" line="536"/>
         <source>Step</source>
         <translation>Krok</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="535"/>
+        <location filename="../src/mainwindow.cpp" line="539"/>
         <source>Rows</source>
         <translation>Riadkov</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="538"/>
+        <location filename="../src/mainwindow.cpp" line="542"/>
         <source>Output</source>
         <translation>Výstup</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="541"/>
+        <location filename="../src/mainwindow.cpp" line="545"/>
         <source>Suffix</source>
         <translation>Prípona</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="549"/>
+        <location filename="../src/mainwindow.cpp" line="553"/>
         <source>Processing items</source>
         <translation>Spracúvam položky</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="564"/>
+        <location filename="../src/mainwindow.cpp" line="568"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="569"/>
+        <location filename="../src/mainwindow.cpp" line="573"/>
         <source>About...</source>
         <translation>O ...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="741"/>
+        <location filename="../src/mainwindow.cpp" line="749"/>
         <source>Question</source>
         <translation>Otázka</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="742"/>
+        <location filename="../src/mainwindow.cpp" line="750"/>
         <source>Dou you want to upload file &apos;%1&apos; to &apos;%2&apos;?</source>
         <translation>Naozaj chcete nahrať súbor &apos;%1&apos; na &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="751"/>
-        <location filename="../src/mainwindow.cpp" line="754"/>
+        <location filename="../src/mainwindow.cpp" line="759"/>
+        <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Information</source>
         <translation>Informácia</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="751"/>
+        <location filename="../src/mainwindow.cpp" line="759"/>
         <source>Select a movie item</source>
         <translation>Vyberte video</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="754"/>
+        <location filename="../src/mainwindow.cpp" line="762"/>
         <source>Nothing to upload</source>
         <translation>Nie je čo nahrať</translation>
     </message>

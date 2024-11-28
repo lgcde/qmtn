@@ -60,7 +60,11 @@ QIcon IconProvider::zoomFit()  {return QIcon::fromTheme("zoom-fit-best",        
 
 QIcon IconProvider::fullScreen() {return QIcon::fromTheme("view-fullscreen",        QIcon(":/icons/fullscreen.svg"));  }
 
-QIcon IconProvider::remove()   {return QIcon::fromTheme("edit-delete",              QIcon(":/icons/delete.png"));   }
+QIcon IconProvider::remove()   {return QIcon::fromTheme("edit-delete",              QIcon(":/icons/delete.svg"));   }
+
+QIcon IconProvider::plus()     {return QIcon::fromTheme("list-add",                 QIcon(":/icons/plus.svg"));     }
+
+QIcon IconProvider::minus()    {return QIcon::fromTheme("list-remove",              QIcon(":/icons/minus.svg"));    }
 
 #else
 
@@ -96,6 +100,10 @@ QIcon IconProvider::zoomFit()  {return QIcon(":/icons/zoomfit.svg");            
 
 QIcon IconProvider::fullScreen() {return QIcon(":/icons/fullscreen.svg");            }
 
-QIcon IconProvider::remove()    {return QIcon(":/icons/delete.png");                 }
+QIcon IconProvider::remove()    {return QIcon(":/icons/delete.svg");                 }
+
+QIcon IconProvider::plus()     {return QIcon(":/icons/plus.svg");                    }
+
+QIcon IconProvider::minus()    {return QIcon(":/icons/minus.svg");                   }
 
 #endif

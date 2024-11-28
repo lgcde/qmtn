@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="512mm"
@@ -16,25 +13,13 @@
    version="1.1"
    id="svg8"
    sodipodi:docname="zoomin.svg"
-   inkscape:version="0.92+devel unknown"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    enable-background="new"
    inkscape:export-filename="/home/vm/Desktop/failed.png"
    inkscape:export-xdpi="6.3499999"
    inkscape:export-ydpi="6.3499999">
   <defs
      id="defs2">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4497">
-      <stop
-         style="stop-color:#ffffff;stop-opacity:0.43499342"
-         offset="0"
-         id="stop4493" />
-      <stop
-         style="stop-color:#ffffff;stop-opacity:0.14016153"
-         offset="1"
-         id="stop4495" />
-    </linearGradient>
     <filter
        inkscape:menu-tooltip="Transparent plastic with deep colors"
        inkscape:menu="Bevels"
@@ -239,15 +224,6 @@
          in2="result9"
          id="feBlend4489" />
     </filter>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4497"
-       id="linearGradient4499"
-       x1="28.792221"
-       y1="-195.31265"
-       x2="509.62677"
-       y2="290.55981"
-       gradientUnits="userSpaceOnUse" />
     <filter
        inkscape:label="Button"
        inkscape:menu="Bevels"
@@ -322,18 +298,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.17899518"
-     inkscape:cx="1129.4932"
-     inkscape:cy="546.38612"
+     inkscape:zoom="0.16"
+     inkscape:cx="-563.57988"
+     inkscape:cy="1141.7002"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="929"
+     inkscape:window-width="1592"
+     inkscape:window-height="982"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      inkscape:snap-global="false"
      inkscape:snap-bbox="true"
      showguides="true"
@@ -347,7 +323,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -356,32 +332,19 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,215)">
-    <rect
-       ry="66.47081"
-       y="-206.97742"
-       x="8.022583"
-       height="495.95483"
-       width="495.95483"
-       id="rect4320"
-       style="fill:#32adfa;fill-opacity:1;fill-rule:evenodd;stroke-width:5.22524881;paint-order:stroke fill markers" />
-    <rect
-       style="fill:url(#linearGradient4499);fill-opacity:1;fill-rule:evenodd;stroke-width:5.22524881;paint-order:stroke fill markers;filter:url(#filter4527)"
-       id="rect4298"
-       width="495.95483"
-       height="495.95483"
-       x="8.0225773"
-       y="-206.97742"
-       ry="66.47081" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:468.9284668px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:0.97835628;stroke:none;stroke-width:11.72321129;filter:url(#filter4491)"
-       x="59.544617"
-       y="187.99808"
-       id="text4304"><tspan
-         sodipodi:role="line"
-         id="tspan4302"
-         x="59.544617"
-         y="187.99808"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;fill-opacity:0.97835628;stroke-width:11.72321129">+</tspan></text>
+    <g
+       id="g975"
+       transform="matrix(0.93545191,0,0,0.93545191,60.268375,7.6938677)"
+       style="stroke:#008080;stroke-width:38.4057">
+      <path
+         id="path971"
+         style="fill:#ffffff;stroke:#008080;stroke-width:58.2071"
+         d="M 519.0918,13.935547 A 662.29561,662.29561 0 0 0 51.570312,207.91797 a 662.29561,662.29561 0 0 0 0,936.62693 662.29561,662.29561 0 0 0 894.986328,38.2305 l 69.44136,69.4414 c -23.89154,55.4782 -13.12,122.0753 32.3262,167.5215 l 416.2168,416.2187 c 59.5738,59.5738 155.4946,59.5738 215.0684,0 59.5737,-59.5737 59.5737,-155.4946 0,-215.0683 l -416.2168,-416.2188 c -45.4469,-45.4468 -112.0448,-56.2171 -167.5235,-32.3242 l -69.4433,-69.4434 A 662.29561,662.29561 0 0 0 988.19727,207.91797 662.29561,662.29561 0 0 0 519.0918,13.935547 Z"
+         transform="matrix(0.26458333,0,0,0.26458333,0,-215)" />
+      <path
+         id="path973"
+         style="fill:#ffffff;stroke:#008080;stroke-width:15.4007"
+         d="m 36.444264,-12.836818 77.865156,-1e-6 v 77.86431 l 46.48663,10e-7 v -77.864311 l 77.86516,1e-6 v -46.48749 l -77.86516,-2e-6 1e-5,-77.86429 h -46.48664 v 77.864291 H 36.444264 Z" />
+    </g>
   </g>
 </svg>
