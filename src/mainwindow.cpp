@@ -190,15 +190,8 @@ void MainWindow::treeContextMenuRequest(const QPoint &pos)
     treeContextMenu->addAction(IconProvider::refresh(), tr("&Recreate Thumbnail"),  this, SLOT(recreateThumbnail()),    Qt::Key_F5/*to generate hint*/);
 #endif
 
-
-    if(pluginActions.count() > 0)
-    {
-        treeContextMenu->addSeparator();
-
-        foreach (auto a, pluginActions) {
-            treeContextMenu->addAction(a);
-        }
-    }
+    foreach (auto a, pluginActions)
+        treeContextMenu->addAction(a);
 
     treeContextMenu->exec(ui->treeView->mapToGlobal(pos));
 }
@@ -689,7 +682,7 @@ void MainWindow::loadPlugins()
 void MainWindow::addPluginToMenu(QObject *plugin, QString text)
 {
     if(pluginActions.count() == 0)
-        ui->menu_Edit->addSeparator();
+        pluginActions << ui->menu_Edit->addSection(QIcon(":icons/plug.svg"), "Plugins");
 
     QAction *action = new QAction(QIcon(":upload"), text, plugin);
     connect(action, &QAction::triggered, this, &MainWindow::pluginTriggered);

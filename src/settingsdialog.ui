@@ -3,14 +3,14 @@
  <class>Dialog</class>
  <widget class="QDialog" name="Dialog">
   <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
+   <enum>Qt::WindowModality::WindowModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>883</width>
-    <height>475</height>
+    <height>520</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -132,7 +132,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="insertPolicy">
-                 <enum>QComboBox::NoInsert</enum>
+                 <enum>QComboBox::InsertPolicy::NoInsert</enum>
                 </property>
                 <property name="frame">
                  <bool>true</bool>
@@ -161,7 +161,7 @@
                 </property>
                 <property name="icon">
                  <iconset resource="images.qrc">
-                  <normaloff>:/icons/plus.svg</normaloff>:/icons/plus.svg</iconset>
+                  <normaloff>:/icons/add.svg</normaloff>:/icons/add.svg</iconset>
                 </property>
                </widget>
               </item>
@@ -259,7 +259,7 @@
             <string>Output</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <property name="spacing">
@@ -914,7 +914,7 @@ QPushButton#btnTimeShadow
                 <item>
                  <spacer name="horizontalSpacer_2">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -943,7 +943,7 @@ QPushButton#btnTimeShadow
                <string>&amp;Infotext</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
               </property>
               <property name="checkable">
                <bool>true</bool>
@@ -1050,7 +1050,7 @@ QPushButton#btnTimeShadow
                       <number>10</number>
                      </property>
                      <property name="insertPolicy">
-                      <enum>QComboBox::NoInsert</enum>
+                      <enum>QComboBox::InsertPolicy::NoInsert</enum>
                      </property>
                      <item>
                       <property name="text">
@@ -1122,7 +1122,7 @@ QPushButton#btnTimeShadow
                  <item>
                   <spacer name="horizontalSpacer">
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1253,7 +1253,7 @@ QPushButton#btnTimeShadow
                       <number>10</number>
                      </property>
                      <property name="insertPolicy">
-                      <enum>QComboBox::NoInsert</enum>
+                      <enum>QComboBox::InsertPolicy::NoInsert</enum>
                      </property>
                      <item>
                       <property name="text">
@@ -1344,7 +1344,7 @@ QPushButton#btnTimeShadow
                  <item>
                   <spacer name="horizontalSpacer_3">
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1382,7 +1382,7 @@ QPushButton#btnTimeShadow
          <item>
           <spacer name="verticalSpacer_3">
            <property name="orientation">
-            <enum>Qt::Vertical</enum>
+            <enum>Qt::Orientation::Vertical</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -1399,7 +1399,7 @@ QPushButton#btnTimeShadow
      <item>
       <spacer name="verticalSpacer_2">
        <property name="orientation">
-        <enum>Qt::Vertical</enum>
+        <enum>Qt::Orientation::Vertical</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -1445,7 +1445,7 @@ QPushButton#btnTimeShadow
        <item>
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -1455,19 +1455,19 @@ QPushButton#btnTimeShadow
          </property>
         </spacer>
        </item>
-       <item alignment="Qt::AlignRight">
+       <item>
         <widget class="QDialogButtonBox" name="buttonBox">
          <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+          <enum>Qt::LayoutDirection::LeftToRight</enum>
          </property>
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
          <property name="standardButtons">
-          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+          <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
          </property>
          <property name="centerButtons">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>

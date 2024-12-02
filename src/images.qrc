@@ -21,10 +21,12 @@
         <file>../icons/minus.svg</file>
         <file>../icons/delete.svg</file>
         <file>../icons/plus.svg</file>
+        <file>../icons/add.svg</file>
         <file>../icons/fullscreen.svg</file>
         <file>../icons/exp.svg</file>
         <file>../icons/imp.svg</file>
         <file>../icons/warning.svg</file>
+        <file>../icons/plug.svg</file>
         <file>../lang/sk.qm</file>
     </qresource>
 </RCC>
