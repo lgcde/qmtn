@@ -396,7 +396,17 @@
         <translation>Veľkosť písma:</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.ui" line="1290"/>
+        <location filename="../src/settingsdialog.ui" line="1280"/>
+        <source>lower middle</source>
+        <translation>v strede dole</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.ui" line="1285"/>
+        <source>upper middle</source>
+        <translation>v strede hore</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.ui" line="1300"/>
         <source>Color/Shadow: </source>
         <translation>Farba/tiene: </translation>
     </message>
