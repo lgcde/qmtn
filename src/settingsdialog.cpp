@@ -97,6 +97,7 @@ SettingsData SettingsDialog::settingsData()
     data.foreground       = m_data.foreground;
     data.timecolor        = m_data.timecolor;
     data.timeshadow       = m_data.timeshadow;
+    data.timebox          = m_data.timebox;
 
     data.fontInfotext       = ui->cbFontInfoText->currentText();
     data.fontTimestamp      = ui->cbFontTimeStamp->currentText();
@@ -105,7 +106,7 @@ SettingsData SettingsDialog::settingsData()
     data.fontInfoLocation   = ui->cbFontInfoLocation->currentIndex();
     data.fontTimeLocation   = ui->cbFontTimestampLocation->currentIndex();
 
-    data.additional         = ui->eAdditional->text();
+    data.additional         = ui->eAdditional->text().trimmed();
 
     data.executable         = ui->eMtnSelector->text();
     data.max_dir_depth      = ui->sbDepth->value();
@@ -147,6 +148,7 @@ void SettingsDialog::setSettingsData(SettingsData data)
     setBackGroundColor(ui->btnForeground, data.foreground); m_data.foreground=data.foreground;
     setBackGroundColor(ui->btnTimeColor,  data.timecolor);  m_data.timecolor=data.timecolor;
     setBackGroundColor(ui->btnTimeShadow, data.timeshadow); m_data.timeshadow=data.timeshadow;
+    setBackGroundColor(ui->btnTimeBox, data.timebox); m_data.timebox=data.timebox;
 
     ui->cbFontInfoText->setEditText(                data.fontInfotext);
     ui->cbFontTimeStamp->setEditText(               data.fontTimestamp);
@@ -169,14 +171,18 @@ void SettingsDialog::on_btnOutputDir_clicked()
         ui->eOutputDir->setText(newDir);
 }
 /******************************************************************************************************/
-void SettingsDialog::getUserColor(QColor &c)
+void SettingsDialog::getUserColor(QColor &c, bool showAlphaChannel)
 {
     QColor cTmp;
+    QColorDialog::ColorDialogOption showAlphaChannelOption;
 
     if(c.isValid())
         cTmp = QColor(c);
 
-    cTmp = QColorDialog::getColor(cTmp, this);
+    if(showAlphaChannel)
+        showAlphaChannelOption = QColorDialog::ShowAlphaChannel;
+
+    cTmp = QColorDialog::getColor(cTmp, this, tr("Select Color"), showAlphaChannelOption);
 
     if(cTmp.isValid())
         c = cTmp;
@@ -184,7 +190,10 @@ void SettingsDialog::getUserColor(QColor &c)
 /******************************************************************************************************/
 void SettingsDialog::setBackGroundColor(QPushButton *button, QColor color)
 {
-    button->setStyleSheet(QString("background-color: %1").arg(color.name()));
+    if(color.isValid() && color.alpha()>0)
+        button->setStyleSheet(QString("background-color: %1").arg(color.name()));
+    else
+        button->setStyleSheet(QString(""));
 }
 /******************************************************************************************************/
 void SettingsDialog::on_btnBackground_clicked()
@@ -209,6 +218,12 @@ void SettingsDialog::on_btnTimeShadow_clicked()
 {
     getUserColor(m_data.timeshadow);
     setBackGroundColor(ui->btnTimeShadow, m_data.timeshadow);
+}
+/******************************************************************************************************/
+void SettingsDialog::on_btnTimeBox_clicked()
+{
+    getUserColor(m_data.timebox, true);
+    setBackGroundColor(ui->btnTimeBox, m_data.timebox);
 }
 /******************************************************************************************************/
 /// Do not allow empty settings name
@@ -328,3 +343,4 @@ void SettingsDialog::on_btnImport_clicked()
     }
 }
 /******************************************************************************************************/
+

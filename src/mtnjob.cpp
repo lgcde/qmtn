@@ -210,7 +210,12 @@ QStringList MtnJob::createArguments()
     if(!m_sett.cover.isEmpty())                     //    --cover: extract album art
         args << QString("--cover=%1").arg(m_sett.cover);
 
-    if(!m_sett.additional.isEmpty())                // custom switches not covered with GUI
+                                                    //    --bounding-box[=RRGGBBAA]: Add a bounding box under timestamps
+    if(m_sett.timestamp && m_sett.timebox.isValid() && m_sett.timebox.alpha()>0)
+        args << QString("--bounding-box=%1").arg(rgba2hex(m_sett.timebox));
+
+
+    if(!m_sett.additional.isEmpty())                //    custom switches not covered with GUI
         args << m_sett.additional.split(' ');
 
     return args;
@@ -228,6 +233,20 @@ QString MtnJob::color2hex(QColor color)
 #endif
 
     return QString("FFFFFF");
+}
+/******************************************************************************************************/
+QString MtnJob::rgba2hex(QColor rgba)
+{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
+    if(rgba.isValid())
+        return QString::asprintf("%02x%02x%02x%02x", rgba.red(), rgba.green(), rgba.blue(), rgba.alpha());
+#else
+    QString s;
+    if(rgba.isValid())
+        return s.sprintf("%02x%02x%02x%02x", rgba.red(), rgba.green(), rgba.blue(), rgba.alpha());
+#endif
+
+    return QString("FFFFFFFF");
 }
 /******************************************************************************************************/
 QString MtnJob::timeString(QString text)

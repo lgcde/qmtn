@@ -57,11 +57,13 @@ SettingsData::SettingsData(QJsonObject obj)
     foreground.setNamedColor(   obj[REG_FOREGROUND].toString(QColor(Qt::black).name()));
     timecolor.setNamedColor (   obj[REG_TIMECOLOR ].toString(QColor(Qt::white).name()));
     timeshadow.setNamedColor(   obj[REG_TIMESHADOW].toString(QColor(Qt::gray).name()));
+    timebox.setNamedColor(      obj[REG_TIMEBOXCOLOR].toString(QColor(Qt::transparent).name()));
 #else
     background = QColor::fromString(obj[REG_BACKGROUND].toString(QColor(Qt::white).name()));
     foreground = QColor::fromString(obj[REG_FOREGROUND].toString(QColor(Qt::black).name()));
     timecolor  = QColor::fromString(obj[REG_TIMECOLOR ].toString(QColor(Qt::white).name()));
     timeshadow = QColor::fromString(obj[REG_TIMESHADOW].toString(QColor(Qt::gray).name()));
+    timebox    = QColor::fromString(obj[REG_TIMEBOXCOLOR].toString(QColor(Qt::transparent).name()));
 #endif
 
     fontInfotext        = obj[REG_FONTTEXT          ].toString();
@@ -117,6 +119,7 @@ QJsonObject SettingsData::toJsonObject()
         {REG_FOREGROUND,        foreground.name()   },
         {REG_TIMECOLOR,         timecolor.name()    },
         {REG_TIMESHADOW,        timeshadow.name()   },
+        {REG_TIMEBOXCOLOR,      timebox.name(QColor::HexArgb)},
 
         {REG_FONTTEXT,          fontInfotext    },
         {REG_FONTTIME,          fontTimestamp   },

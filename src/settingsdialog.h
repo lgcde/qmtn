@@ -36,7 +36,7 @@ class SettingsDialog : public QDialog
     int m_currIdx;
     ProfileModel *profileModel;
 
-    void getUserColor(QColor &c);
+    void getUserColor(QColor &c, bool showAlphaChannel=false);
     void setBackGroundColor(QPushButton *button, QColor color);
     void setSettingsData(SettingsData data);
 public:
@@ -55,6 +55,7 @@ private slots:
     void on_btnDelProfile_clicked();
     void on_btnExport_clicked();
     void on_btnImport_clicked();
+    void on_btnTimeBox_clicked();
 
 public slots:
     virtual void accept() override;

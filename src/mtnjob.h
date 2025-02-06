@@ -44,6 +44,7 @@ private:
     void run() Q_DECL_OVERRIDE;
     QStringList createArguments();
     QString color2hex(QColor color);
+    QString rgba2hex(QColor rgba);
     static QString timeString(QString text);
 };
 

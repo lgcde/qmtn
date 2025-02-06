@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define REG_BACKGROUND          "background"
 #define REG_TIMECOLOR           "timecolor"
 #define REG_TIMESHADOW          "shadow"
+#define REG_TIMEBOXCOLOR        "time_box_color"
 #define REG_INFOTEXT            "infotext"
 #define REG_TIMESTAMP           "timestamp"
 #define REG_FONTTEXT            "font_info_text"
@@ -85,7 +86,7 @@ struct SettingsData
         fontInfoLocation, fontTimeLocation, step, minHeight, shadowRadius;
     double blank_skip, skip_begin, skip_end;
     bool overwrite, infotext, timestamp, verbose, transparent;
-    QColor foreground, background, timecolor, timeshadow;
+    QColor foreground, background, timecolor, timeshadow, timebox;
     QString additional;
 
     /* qmtn extra */

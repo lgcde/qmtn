@@ -406,9 +406,13 @@
         <translation>v strede hore</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.ui" line="1300"/>
+        <location filename="../src/settingsdialog.ui" line="1301"/>
+        <source>Color/Shadow/Box: </source>
+        <translation>Farba/Tieň/Podklad: </translation>
+    </message>
+    <message>
         <source>Color/Shadow: </source>
-        <translation>Farba/tiene: </translation>
+        <translation type="vanished">Farba/tiene: </translation>
     </message>
     <message>
         <location filename="../src/settingsdialog.ui" line="1311"/>
@@ -421,7 +425,12 @@
         <translation>Farba tieňov časových značiek</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.ui" line="1365"/>
+        <location filename="../src/settingsdialog.ui" line="1360"/>
+        <source>Timestamp Bounding Box Color</source>
+        <translation>Farba podkladu časových značiek</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.ui" line="1401"/>
         <source>Additional options:</source>
         <translation>Ďalšie parametre:</translation>
     </message>
@@ -795,7 +804,12 @@
         <translation>Cieľový priečinok</translation>
     </message>
     <message>
-        <location filename="../src/settingsdialog.cpp" line="248"/>
+        <location filename="../src/settingsdialog.cpp" line="183"/>
+        <source>Select Color</source>
+        <translation>Výber farby</translation>
+    </message>
+    <message>
+        <location filename="../src/settingsdialog.cpp" line="252"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>

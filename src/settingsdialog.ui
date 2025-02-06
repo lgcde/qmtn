@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>883</width>
-    <height>520</height>
+    <height>522</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -807,7 +807,8 @@
             <string notr="true">QPushButton#btnForeground, 
 QPushButton#btnBackground, 
 QPushButton#btnTimeColor, 
-QPushButton#btnTimeShadow
+QPushButton#btnTimeShadow,
+QPushButton#btnTimeBox
 {
     border-style: solid;
 	border-width: 2px;	
@@ -1297,7 +1298,7 @@ QPushButton#btnTimeShadow
                    <item>
                     <widget class="QLabel" name="label_17">
                      <property name="text">
-                      <string>Color/Shadow: </string>
+                      <string>Color/Shadow/Box: </string>
                      </property>
                      <property name="buddy">
                       <cstring>btnTimeColor</cstring>
@@ -1344,6 +1345,31 @@ QPushButton#btnTimeShadow
                        </property>
                        <property name="text">
                         <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btnTimeBox">
+                       <property name="maximumSize">
+                        <size>
+                         <width>40</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Timestamp Bounding Box Color</string>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">background-color: lightgrey</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="checkable">
+                        <bool>true</bool>
+                       </property>
+                       <property name="checked">
+                        <bool>false</bool>
                        </property>
                       </widget>
                      </item>
@@ -1531,6 +1557,7 @@ QPushButton#btnTimeShadow
   <tabstop>cbFontTimestampLocation</tabstop>
   <tabstop>btnTimeColor</tabstop>
   <tabstop>btnTimeShadow</tabstop>
+  <tabstop>btnTimeBox</tabstop>
   <tabstop>eAdditional</tabstop>
   <tabstop>btnExport</tabstop>
   <tabstop>btnImport</tabstop>
