@@ -3,15 +3,17 @@ Section: utils
 Priority: optional
 Maintainer: wahibre <wahibre@gmx.com>
 Build-Depends: debhelper(>=10),
-               qtbase5-dev
+               qt6-base-dev | qtbase5-dev,
+               qt6-webengine-dev | qtwebengine5-dev
 Standards-Version: 4.1.2
 Homepage: https://gitlab.com/movie_thumbnailer/qmtn/wikis
-Vcs-Bzr: lp:wahibre/qmtn
+Vcs-Git: https://gitlab.com/movie_thumbnailer/qmtn
 
 Package: qmtn
 Architecture: any
 Depends: ${shlibs:Depends}, 
          ${misc:Depends},
-         qt5-image-formats-plugins
+         qt6-image-formats-plugins | qt5-image-formats-plugins,
+         libqt6svg6 | libqt5svg5
 Description: Qt Movie Thumbnailer - screens generator
  GUI for mtn (Movie Thumbnailer).

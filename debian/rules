@@ -1,12 +1,15 @@
 #!/usr/bin/make -f
 
-export QT_SELECT=5
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+QMAKE_PARAMS = CONFIG+=use_webengine src
 
 %:
 	dh $@
 
 override_dh_auto_configure:
-	qmake src
+	qmake6 $(QMAKE_PARAMS) || qmake $(QMAKE_PARAMS)
 
 override_dh_auto_install:
 

@@ -2,7 +2,7 @@ QT += core gui network widgets
 
 TARGET = qmtn
 TEMPLATE = app
-CONFIG +=c++11
+#CONFIG +=c++11
 
 use_git_version {
     DEFINES += VERSION_FROM_GIT_TAG=\\\"$$system(git describe --tags --abbrev=4)\\\"

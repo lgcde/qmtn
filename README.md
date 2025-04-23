@@ -23,7 +23,7 @@ Dependencies
 
 Debian/Ubuntu/Mint
 
-    sudo apt-get install qt5-default qtbase5-dev
+    sudo apt-get install qmake6 qt6-base-dev qt6-image-formats-plugins qt6-webengine-dev
 
 Fedora
 
