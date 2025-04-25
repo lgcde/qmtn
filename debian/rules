@@ -9,7 +9,7 @@ QMAKE_PARAMS = CONFIG+=use_webengine src
 	dh $@
 
 override_dh_auto_configure:
-	qmake6 $(QMAKE_PARAMS) || qmake $(QMAKE_PARAMS)
+	qmake6 $(QMAKE_PARAMS) || QT_SELECT=5 qmake $(QMAKE_PARAMS)
 
 override_dh_auto_install:
 
