@@ -86,13 +86,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionRefreshThumbnail->setIcon(IconProvider::refresh());
     ui->actionRemoveItemfromSidebar->setIcon(IconProvider::remove());
 
-    videoExtensions << "3gp"  << "3g2"    << "asf"   << "avi" << "avs"  << "dat"  << "divx"
-                    << "dsm"  << "evo"    << "flv"   << "m1v" << "m2ts" << "m2v"  << "m4a"
-                    << "mj2"  << "mjpg"   << "mjpeg" << "mkv" << "mov"  << "moov" << "mp4"
-                    << "rmvb" << "mpeg"   << "mpv"   << "nut" << "ogg"  << "ogm"  << "xvid"
-                    << "mpg"  << "swf"    << "ts"    << "vob" << "webm" << "wmv"  << "qt"
-                    << "rm"   << "f4v";
-
     connect(ui->mainToolBar, &QToolBar::customContextMenuRequested, this, &MainWindow::toolbarContextMenuRequested);
     connect(ui->action_Quit, &QAction::triggered, this, &MainWindow::close);
     connect(ui->treeView->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &MainWindow::currentRowChanged);
@@ -101,6 +94,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->treeView, &QTreeView::doubleClicked, this, &MainWindow::treeItemDoubleClicked);
     connect(worker, &MtnWorker::changedProcessingItemsNumber, this, &MainWindow::changedProcessingItemsNumber);
     connect(worker, &MtnWorker::generatingSuccess, this, &MainWindow::updateItem);
+
+    QStringList defaultVideoExtensions;
+    defaultVideoExtensions
+        << "3gp"  << "3g2"    << "asf"   << "avi" << "avs"  << "dat"  << "divx"
+        << "dsm"  << "evo"    << "flv"   << "m1v" << "m2ts" << "m2v"  << "m4a"
+        << "mj2"  << "mjpg"   << "mjpeg" << "mkv" << "mov"  << "moov" << "mp4"
+        << "rmvb" << "mpeg"   << "mpv"   << "nut" << "ogg"  << "ogm"  << "xvid"
+        << "mpg"  << "swf"    << "ts"    << "vob" << "webm" << "wmv"  << "qt"
+        << "rm"   << "f4v";
 
     QSettings s;
     restoreGeometry(s.value("mainform/geometry").toByteArray());
@@ -111,6 +113,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pluginsLocation = s.value("plugins/location").toString();
     ui->mainToolBar->setToolButtonStyle(
                 static_cast<Qt::ToolButtonStyle>(s.value("mainform/toolbarlabels", Qt::ToolButtonTextBesideIcon).toInt()));
+
+    videoExtensions = s.value("VideoExtensions", defaultVideoExtensions).toStringList();
 
     createStatusBarWidgets();
     createRecentFiles();
