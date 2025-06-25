@@ -46,6 +46,7 @@ class MainWindow : public QMainWindow
     QMap<QString,QStandardItem*> processingDirs;    // directories in last drop
     QString AppVersion;
     QString AppVersionGit;
+    QString settingsFileName;
     QString pluginsLocation;
 
     /* statusbar widgets */

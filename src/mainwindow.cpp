@@ -100,6 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
         << "rm"   << "f4v";
 
     QSettings s;
+    settingsFileName = s.fileName();
     restoreGeometry(s.value("mainform/geometry").toByteArray());
     restoreState(s.value("mainform/state").toByteArray());
     ui->splitter->restoreState(s.value("mainform/splitter").toByteArray());
@@ -216,7 +217,7 @@ void MainWindow::processUrls(QList<QUrl> urls)
     /* all dropped files */
     foreach (QUrl files, urls)
     {
-        qDebug() << "Processing URL: "<< files;
+        qDebug() << "Processing URL: " << files;
         QString localFile = files.toLocalFile();
         QFileInfo fi(localFile);
         addRecentFile(localFile);
@@ -480,8 +481,19 @@ bool MainWindow::fileInfo2FileItem(QFileInfo file, QStandardItem *parent)
 /******************************************************************************************************/
 bool MainWindow::isVideoFile(QFileInfo file)
 {
+    QString file_suff = file.suffix();
+
     /* based on extension */
-    return (videoExtensions.contains(file.suffix(), Qt::CaseInsensitive));
+    if(videoExtensions.contains(file_suff, Qt::CaseInsensitive))
+        return true;
+    else
+    {
+        qWarning().noquote()
+            << tr("File extension") << file_suff << tr("not allowed!")
+            << tr("Modify VideoExtension item in Application settings to enable it.")
+            << QString("( %1 %2 )").arg(tr("see"), settingsFileName);
+        return false;
+    }
 
     /* based on mime type
     QMimeDatabase mimedb;

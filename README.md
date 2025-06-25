@@ -62,6 +62,20 @@ Install
 
     sudo make install
 
+Application settings
+====================
+
+Users normally expect an application to remember its settings (window sizes and positions, 
+options, etc.) across sessions. This information is often stored in the system registry 
+on Windows. On Unix systems, many applications (including the KDE applications) use INI 
+text files. Typical file path is `$HOME/.config/Rusty Pipe/Qt Movie Thumbnailer.ini`.  
+
+These settings are not changed by the application (user may change it manually):  
+  
+    [General]  
+    MaxRecentFiles - Number of files/folders recently opened showing in menu "File"  
+    VideoExtension - Comma separated list of file extensions allowed to process (usefull when processing folders)
+
 Links
 =====
 
