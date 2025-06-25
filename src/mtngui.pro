@@ -4,10 +4,17 @@ TARGET = qmtn
 TEMPLATE = app
 #CONFIG +=c++11
 
+# You can make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+VERSION_RELEASE=0.5
+DEFINES += VERSION_RELEASE=\\\"$$VERSION_RELEASE\\\"
+
 use_git_version {
-    DEFINES += VERSION_FROM_GIT_TAG=\\\"$$system(git describe --tags --abbrev=4)\\\"
+    DEFINES += VERSION_FROM_GIT_TAG=\\\"$$system(git describe --tags --abbrev=4 || echo $$VERSION_RELEASE)\\\"
 } else {
-    DEFINES += VERSION_FROM_GIT_TAG=\\\"0.5\\\"
+    DEFINES += VERSION_FROM_GIT_TAG=\\\"$$VERSION_RELEASE\\\"
 }
 
 use_webengine {

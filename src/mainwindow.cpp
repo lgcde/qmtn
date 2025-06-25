@@ -44,20 +44,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    /*
-     *                  VERSION_FROM_GIT_TAG    window title
-     *                  --------------------    ------------
-     *  tagged commit       0.1                 0.1
-     *  after the tag       0.1-10-g23fc        0.1.10
-     */
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 
-    AppVersion = QString(VERSION_FROM_GIT_TAG).replace('-','.');
+    AppVersion = VERSION_RELEASE;
+    AppVersionGit = VERSION_FROM_GIT_TAG;
     setWindowTitle(QString("%1 (%2)").arg(
         qApp->applicationName(),
         QVersionNumber::fromString(AppVersion).toString()));
 #else
-    AppVersion = VERSION_FROM_GIT_TAG;
+    AppVersion = VERSION_RELEASE;
     setWindowTitle(QString("%1 (%2)").arg(qApp->applicationName()).arg(AppVersion));
 #endif
     datamodel = new QStandardItemModel(this);
@@ -574,7 +569,7 @@ R"(
     <p>More details at <a href="https://gitlab.com/movie_thumbnailer/qmtn/wikis/home/">HomePage</a>.</p>
     <p>Version:
 )"
-+AppVersion+
++AppVersionGit+
 R"(</p
     <p>Features:
         <ul>

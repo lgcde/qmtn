@@ -45,6 +45,7 @@ class MainWindow : public QMainWindow
     ProfileModel *profileModel=Q_NULLPTR;        
     QMap<QString,QStandardItem*> processingDirs;    // directories in last drop
     QString AppVersion;
+    QString AppVersionGit;
     QString pluginsLocation;
 
     /* statusbar widgets */
