@@ -247,7 +247,9 @@ void SettingsDialog::settingsTextChanged(const QString &text)
 /******************************************************************************************************/
 void SettingsDialog::on_profilesComboBox_currentIndexChanged(int index)
 {
-    setSettingsData(profileModel->data(profileModel->index(index, 1), Qt::DisplayRole).value<SettingsData>());
+    QVariant v = profileModel->data(profileModel->index(index, 1) , Qt::DisplayRole);
+
+    setSettingsData(v.value<SettingsData>());
 }
 /******************************************************************************************************/
 void SettingsDialog::accept()
