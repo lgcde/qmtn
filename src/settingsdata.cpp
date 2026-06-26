@@ -179,6 +179,16 @@ SettingsData SettingsData::SettingsDataFromByteArray(QByteArray bytes, bool &ok,
     return data;
 }
 /******************************************************************************************************/
+QString SettingsData::getInfoTextFontName()
+{
+    return getFontFamilyName(fontInfotext);
+}
+/******************************************************************************************************/
+QString SettingsData::getTimestampFontName()
+{
+    return getFontFamilyName(fontTimestamp);
+}
+/******************************************************************************************************/
 QString SettingsData::findExecutableMtn()
 {
     const QString  mtn_cli=MTN_EXE;
@@ -191,5 +201,15 @@ QString SettingsData::findExecutableMtn()
         mtn_exe = QStandardPaths::findExecutable(mtn_cli, searchPaths);
     }
     return mtn_exe;
+}
+/******************************************************************************************************/
+QString SettingsData::getFontFamilyName(QString FontText)
+{
+    auto pos = FontText.indexOf('[');
+
+    if(pos >= 0)
+        return FontText.left(pos).trimmed();
+
+    return FontText;
 }
 /******************************************************************************************************/

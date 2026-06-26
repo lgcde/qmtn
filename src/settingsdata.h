@@ -94,6 +94,9 @@ struct SettingsData
     int timeout;
     int max_dir_depth;
 
+    QString getInfoTextFontName();
+    QString getTimestampFontName();
+
     SettingsData(void);
     SettingsData(QJsonObject obj);
     QJsonObject toJsonObject();
@@ -101,6 +104,7 @@ struct SettingsData
     static SettingsData SettingsDataFromByteArray(QByteArray bytes, bool &ok, QString &errorText);
 private:
     QString findExecutableMtn();
+    QString getFontFamilyName(QString FontText);
 };
 
 Q_DECLARE_METATYPE(SettingsData)

@@ -125,7 +125,7 @@ QStringList MtnJob::createArguments()
 
 
     if(m_sett.infotext || m_sett.timestamp)
-        args << "-f" << m_sett.fontInfotext;        //    -f tahomabd.ttf : font file; use absolute path if not in usual places
+        args << "-f" << m_sett.getInfoTextFontName();//    -f tahomabd.ttf : font file; use absolute path if not in usual places
 
     {
                                                     //    -F RRGGBB:size[:font:RRGGBB:RRGGBB:size] : font format [time is optional]
@@ -141,11 +141,11 @@ QStringList MtnJob::createArguments()
             {
                 //RRGGBB:size[:font:RRGGBB:RRGGBB:size]
 #ifdef Q_OS_WIN
-                QFileInfo fi(m_sett.fontTimestamp);
+                QFileInfo fi(m_sett.getTimestampFontName());
                 /// colon conflict in WIN (e.g. C:\Uses\...)
                 fontparam+=QString(":%1:%2:%3:%4").arg(       fi.fileName(), color2hex(m_sett.timecolor), color2hex(m_sett.timeshadow)).arg(m_sett.fontTimeSize);
 #else
-                fontparam+=QString(":%1:%2:%3:%4").arg(m_sett.fontTimestamp, color2hex(m_sett.timecolor), color2hex(m_sett.timeshadow)).arg(m_sett.fontTimeSize);
+                fontparam+=QString(":%1:%2:%3:%4").arg(m_sett.getTimestampFontName(), color2hex(m_sett.timecolor), color2hex(m_sett.timeshadow)).arg(m_sett.fontTimeSize);
 #endif
             }
             args << "-F" << fontparam;
