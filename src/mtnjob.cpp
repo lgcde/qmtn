@@ -124,7 +124,7 @@ QStringList MtnJob::createArguments()
         args << "-E" << locale.toString(m_sett.skip_end, 'f', 1);
 
 
-    if(m_sett.infotext || m_sett.timestamp)
+    if(m_sett.infotext || m_sett.timestamp || !m_sett.title.isEmpty())
         args << "-f" << m_sett.getInfoTextFontName();//    -f tahomabd.ttf : font file; use absolute path if not in usual places
 
     {
