@@ -35,7 +35,7 @@ unix: INSTALLS += ikona desktop
 
 INCLUDEPATH += uploaders
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
     mainwindow.cpp \
     mtnworker.cpp \
     mtnjob.cpp \
