@@ -1,0 +1,60 @@
+name: Build Windows Chinese Version
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.5.2'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_mingw64'
+
+    - name: Compile Qt Translations (.ts -> .qm)
+      run: |
+        lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
+        lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
+
+    - name: Configure with qmake
+      run: |
+        qmake src/mtngui.pro CONFIG+=release
+
+    - name: Build with mingw32-make
+      run: |
+        mingw32-make -j4
+
+    - name: Deploy Qt Dependencies
+      run: |
+        mkdir dist
+        copy release\qmtn.exe dist\
+        windeployqt --release --compiler-runtime dist\qmtn.exe
+
+    - name: Download mtn CLI Engine
+      shell: powershell
+      run: |
+        # Download mtn.exe executable and bundle into dist
+        Invoke-WebRequest -Uri "https://gitlab.com/movie_thumbnailer/mtn/-/releases" -OutFile dist/mtn.exe -ErrorAction SilentlyContinue
+
+    - name: Create Portable Zip Package
+      shell: powershell
+      run: |
+        Compress-Archive -Path dist\* -DestinationPath qmtn_v0.5_Windows_zh_CN.zip
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: qmtn_v0.5_Windows_zh_CN
+        path: qmtn_v0.5_Windows_zh_CN.zip

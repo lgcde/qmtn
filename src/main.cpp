@@ -61,9 +61,14 @@ int main(int argc, char *argv[])
     QCoreApplication::setQuitLockEnabled(true);
 
     auto lang = QLocale::system().name();
-    if(lang.left(2) == "sk")
+    auto trans = new QTranslator();
+    if(lang.startsWith("zh"))
     {
-        auto trans = new QTranslator();
+        if(trans->load(":lang/zh_CN.qm"))
+            a.installTranslator(trans);
+    }
+    else if(lang.startsWith("sk"))
+    {
         if(trans->load(":lang/sk.qm"))
             a.installTranslator(trans);
     }

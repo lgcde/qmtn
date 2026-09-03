@@ -28,5 +28,6 @@
         <file>../icons/warning.svg</file>
         <file>../icons/plug.svg</file>
         <file>../lang/sk.qm</file>
+        <file>../lang/zh_CN.qm</file>
     </qresource>
 </RCC>

@@ -75,4 +75,5 @@ DISTFILES += \
     ../README.md \
     ../debian/changelog
 
-TRANSLATIONS = ../lang/sk.ts
+TRANSLATIONS = ../lang/sk.ts \
+               ../lang/zh_CN.ts
