@@ -30,17 +30,43 @@ jobs:
     - name: Compile & Package in MSYS2
       shell: msys2 {0}
       run: |
-        # 1. Compile Qt Translation
-        lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
-        
-        # 2. Build with qmake6 & make
-        qmake6 src/mtngui.pro CONFIG+=release
-        make -j4
+        set -x
 
-        # 3. Deploy Qt Dependencies
+        # 1. Compile Qt Translation
+        if command -v lrelease-qt6 >/dev/null 2>&1; then
+          lrelease-qt6 lang/zh_CN.ts -qm lang/zh_CN.qm
+        else
+          lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
+        fi
+
+        # 2. Build with qmake6
+        cd src
+        if command -v qmake6 >/dev/null 2>&1; then
+          qmake6 mtngui.pro CONFIG+=release
+        else
+          qmake mtngui.pro CONFIG+=release
+        fi
+        make -j4
+        cd ..
+
+        # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        cp release/qmtn.exe dist/
-        windeployqt dist/qmtn.exe --compiler-runtime
+        if [ -f "src/release/qmtn.exe" ]; then
+          cp src/release/qmtn.exe dist/
+        elif [ -f "src/qmtn.exe" ]; then
+          cp src/qmtn.exe dist/
+        elif [ -f "release/qmtn.exe" ]; then
+          cp release/qmtn.exe dist/
+        elif [ -f "qmtn.exe" ]; then
+          cp qmtn.exe dist/
+        fi
+
+        # 4. Deploy Qt DLL Dependencies
+        if command -v windeployqt-qt6 >/dev/null 2>&1; then
+          windeployqt-qt6 dist/qmtn.exe --compiler-runtime
+        elif command -v windeployqt >/dev/null 2>&1; then
+          windeployqt dist/qmtn.exe --compiler-runtime
+        fi
 
     - name: Create Zip Artifact
       shell: powershell
