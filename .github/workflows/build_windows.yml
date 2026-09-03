@@ -61,12 +61,17 @@ jobs:
           cp qmtn.exe dist/
         fi
 
-        # 4. Deploy Qt DLL Dependencies
+        # 4. Deploy Qt6 DLL Dependencies
         if command -v windeployqt-qt6 >/dev/null 2>&1; then
-          windeployqt-qt6 dist/qmtn.exe --compiler-runtime
+          windeployqt-qt6 dist/qmtn.exe || true
         elif command -v windeployqt >/dev/null 2>&1; then
-          windeployqt dist/qmtn.exe --compiler-runtime
+          windeployqt dist/qmtn.exe || true
         fi
+
+        # Copy MinGW C++ runtime DLLs
+        cp /mingw64/bin/libgcc_s_seh-1.dll dist/ 2>/dev/null || true
+        cp /mingw64/bin/libstdc++-6.dll dist/ 2>/dev/null || true
+        cp /mingw64/bin/libwinpthread-1.dll dist/ 2>/dev/null || true
 
     - name: Create Zip Artifact
       shell: powershell
