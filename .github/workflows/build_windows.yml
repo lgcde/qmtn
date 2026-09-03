@@ -15,40 +15,34 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+    - name: Setup MSYS2 Environment (Qt6 + GCC)
+      uses: msys2/setup-msys2@v2
       with:
-        version: '6.5.2'
-        host: 'windows'
-        target: 'desktop'
-        arch: 'win64_mingw64'
+        msystem: MINGW64
+        update: false
+        install: >-
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-make
+          mingw-w64-x86_64-qt6-base
+          mingw-w64-x86_64-qt6-tools
+          mingw-w64-x86_64-qt6-svg
 
-    - name: Compile Qt Translations (.ts -> .qm)
+    - name: Compile & Package in MSYS2
+      shell: msys2 {0}
       run: |
-        lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
+        # 1. Compile Qt Translation
         lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
+        
+        # 2. Build with qmake6 & make
+        qmake6 src/mtngui.pro CONFIG+=release
+        make -j4
 
-    - name: Configure with qmake
-      run: |
-        qmake src/mtngui.pro CONFIG+=release
+        # 3. Deploy Qt Dependencies
+        mkdir -p dist
+        cp release/qmtn.exe dist/
+        windeployqt dist/qmtn.exe --compiler-runtime
 
-    - name: Build with mingw32-make
-      run: |
-        mingw32-make -j4
-
-    - name: Deploy Qt Dependencies
-      run: |
-        mkdir dist
-        copy release\qmtn.exe dist\
-        windeployqt --release --compiler-runtime dist\qmtn.exe
-
-    - name: Download mtn CLI Engine
-      shell: powershell
-      run: |
-        # Download mtn.exe executable and bundle into dist
-        Invoke-WebRequest -Uri "https://gitlab.com/movie_thumbnailer/mtn/-/releases" -OutFile dist/mtn.exe -ErrorAction SilentlyContinue
-
-    - name: Create Portable Zip Package
+    - name: Create Zip Artifact
       shell: powershell
       run: |
         Compress-Archive -Path dist\* -DestinationPath qmtn_v0.5_Windows_zh_CN.zip
