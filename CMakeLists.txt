@@ -38,7 +38,7 @@ set(PROJECT_SOURCES
     src/profilemodel.cpp
     src/profilemodel.h
     src/images.qrc
-    icons/qmtn.ico
+    src/qmtn.rc
 )
 
 add_executable(qmtn ${PROJECT_SOURCES})
