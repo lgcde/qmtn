@@ -15,7 +15,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup MSYS2 Environment (Qt5 + GCC + Make + CMake)
+    - name: Setup MSYS2 Environment (Qt5 + GCC + Ninja + CMake)
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -23,7 +23,7 @@ jobs:
         update: false
         install: >-
           mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-make
+          mingw-w64-x86_64-ninja
           mingw-w64-x86_64-cmake
           mingw-w64-x86_64-qt5-base
           mingw-w64-x86_64-qt5-tools
@@ -43,9 +43,9 @@ jobs:
           lrelease lang/sk.ts -qm src/lang/sk.qm || true
         fi
 
-        # 2. Build with CMake
-        cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
-        cmake --build build --config Release
+        # 2. Build with CMake and Ninja
+        cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+        cmake --build build
 
         # 3. Prepare dist directory and copy executable
         mkdir -p dist
