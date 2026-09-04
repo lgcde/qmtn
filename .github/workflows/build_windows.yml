@@ -33,10 +33,13 @@ jobs:
         set -x
 
         # 1. Compile Qt Translation (.ts -> .qm)
+        mkdir -p src/lang
         if command -v lrelease-qt6 >/dev/null 2>&1; then
           lrelease-qt6 lang/zh_CN.ts -qm lang/zh_CN.qm
+          lrelease-qt6 lang/zh_CN.ts -qm src/lang/zh_CN.qm
         elif command -v lrelease >/dev/null 2>&1; then
           lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
+          lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
         fi
 
         # 2. Build with qmake6 inside src/
