@@ -63,7 +63,7 @@ FORMS    += mainwindow.ui \
 RESOURCES += images.qrc
 
 ICON = qmtn.ico
-RC_ICONS = ../icons/qmtn.ico
+# RC_ICONS = ../icons/qmtn.ico
 
 OTHER_FILES += \
     ../README.md \
