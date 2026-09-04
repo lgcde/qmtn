@@ -30,58 +30,32 @@ jobs:
     - name: Compile & Package in MSYS2
       shell: msys2 {0}
       run: |
-        set -x
         export PATH="/mingw64/bin:$PATH"
 
         # 1. Compile Qt Translation (.ts -> .qm)
         mkdir -p src/lang
-        if command -v lrelease >/dev/null 2>&1; then
-          lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || true
-          lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
-        elif command -v lrelease-qt5 >/dev/null 2>&1; then
-          lrelease-qt5 lang/zh_CN.ts -qm lang/zh_CN.qm || true
-          lrelease-qt5 lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
-        fi
+        lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
+        lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
 
         # 2. Build with qmake & mingw32-make release inside src/
         cd src
-        if command -v qmake >/dev/null 2>&1; then
-          qmake mtngui.pro CONFIG+=release
-        elif command -v qmake-qt5 >/dev/null 2>&1; then
-          qmake-qt5 mtngui.pro CONFIG+=release
-        fi
-
-        echo "=== STARTING COMPILATION ==="
-        if command -v mingw32-make >/dev/null 2>&1; then
-          mingw32-make -j2 2>&1
-        elif command -v make >/dev/null 2>&1; then
-          make -j2 2>&1
-        fi
-        echo "=== END COMPILATION ==="
+        qmake mtngui.pro CONFIG+=release
+        mingw32-make release -j2 || mingw32-make -j2
         cd ..
 
         # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        cp src/release/qmtn.exe dist/ 2>/dev/null || true
-        cp src/qmtn.exe dist/ 2>/dev/null || true
-        cp release/qmtn.exe dist/ 2>/dev/null || true
-        cp qmtn.exe dist/ 2>/dev/null || true
-        find . -name "qmtn.exe" -exec cp {} dist/ \; 2>/dev/null || true
+        cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || cp qmtn.exe dist/ 2>/dev/null || true
 
         # 4. Check if qmtn.exe exists
         if [ ! -f "dist/qmtn.exe" ]; then
           echo "ERROR: qmtn.exe was not created in dist!"
-          echo "Searching for any generated executables:"
           find . -name "*.exe" 2>/dev/null || true
           exit 1
         fi
 
         # 5. Deploy Qt DLL Dependencies
-        if command -v windeployqt >/dev/null 2>&1; then
-          windeployqt dist/qmtn.exe || true
-        elif command -v windeployqt-qt5 >/dev/null 2>&1; then
-          windeployqt-qt5 dist/qmtn.exe || true
-        fi
+        windeployqt dist/qmtn.exe || true
 
         # Copy MinGW C++ runtime DLLs
         cp /mingw64/bin/libgcc_s_seh-1.dll dist/ 2>/dev/null || true
