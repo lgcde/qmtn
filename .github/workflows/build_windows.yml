@@ -15,67 +15,56 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup MSYS2 Environment (Qt5 + MinGW GCC + Make)
+    - name: Setup MSYS2 Environment (Qt5 + MinGW GCC + CMake + Ninja)
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
         path-type: inherit
         update: false
         install: >-
-          make
           mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-make
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-ninja
           mingw-w64-x86_64-qt5-base
           mingw-w64-x86_64-qt5-tools
           mingw-w64-x86_64-qt5-svg
           mingw-w64-x86_64-qt5-translations
 
-    - name: Compile & Package in MSYS2
+    - name: Compile & Package with CMake + Ninja
       shell: msys2 {0}
       run: |
         export PATH="/mingw64/bin:$PATH"
 
         echo "=== Environment Info ==="
-        which gcc qmake make windeployqt || true
+        which gcc cmake ninja lrelease windeployqt || true
         gcc --version || true
-        qmake -v || true
+        cmake --version || true
 
         # 1. Compile Qt Translations (.ts -> .qm)
         mkdir -p lang src/lang
         lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || true
         lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
-        lrelease lang/sk.ts -qm lang/sk.qm 2>/dev/null || true
         cp lang/zh_CN.qm src/lang/zh_CN.qm || true
-        cp lang/sk.qm src/lang/sk.qm || true
 
-        # 2. Ensure .qm files exist in both root and src
-        touch lang/sk.qm lang/zh_CN.qm src/lang/zh_CN.qm src/lang/sk.qm
+        # 2. Build with CMake + Ninja
+        echo "=== Running CMake ==="
+        cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 
-        # 3. Copy icon to src/
-        cp icons/qmtn.ico src/qmtn.ico || true
+        echo "=== Running Ninja Build ==="
+        cmake --build build --config Release
 
-        # 4. Build with qmake inside src/
-        echo "=== Running qmake ==="
-        cd src
-        qmake mtngui.pro CONFIG+=release
-
-        echo "=== Running make ==="
-        make -j2 || mingw32-make -j2
-
-        cd ..
-
-        # 5. Prepare dist directory and copy executable
+        # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || find . -name "qmtn.exe" -exec cp {} dist/ \;
+        cp build/qmtn.exe dist/ 2>/dev/null || find build -name "qmtn.exe" -exec cp {} dist/ \;
 
-        # 6. Check if qmtn.exe exists
+        # 4. Check if qmtn.exe exists
         if [ ! -f "dist/qmtn.exe" ]; then
           echo "ERROR: qmtn.exe was not created in dist!"
-          find . -name "*.exe" 2>/dev/null || true
+          find build -name "*.exe" 2>/dev/null || true
           exit 1
         fi
 
-        # 7. Deploy Qt DLL Dependencies
+        # 5. Deploy Qt DLL Dependencies
         windeployqt --no-compiler-runtime dist/qmtn.exe || true
 
         # Copy MinGW C++ runtime DLLs
