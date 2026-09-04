@@ -60,7 +60,7 @@ jobs:
         qmake mtngui.pro CONFIG+=release
 
         echo "=== Running make ==="
-        make -j2 || mingw32-make -j2 || make
+        mingw32-make -j2
         cd ..
 
         # 5. Prepare dist directory and copy executable
