@@ -19,6 +19,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
+        path-type: inherit
         update: false
         install: >-
           mingw-w64-x86_64-gcc
@@ -36,16 +37,19 @@ jobs:
         mkdir -p src/lang lang
         lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
         lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
-        [ -f lang/sk.ts ] && lrelease lang/sk.ts -qm lang/sk.qm 2>/dev/null || true
-        [ -f lang/sk.ts ] && lrelease lang/sk.ts -qm src/lang/sk.qm 2>/dev/null || true
+        if [ -f lang/sk.ts ]; then
+          lrelease lang/sk.ts -qm lang/sk.qm || true
+          lrelease lang/sk.ts -qm src/lang/sk.qm || true
+        fi
 
         # 2. Copy icon file to src/ to guarantee windres finds qmtn.ico
-        cp icons/qmtn.ico src/qmtn.ico 2>/dev/null || true
+        cp icons/qmtn.ico src/qmtn.ico || true
 
         # 3. Build with qmake & mingw32-make inside src/
         cd src
         qmake mtngui.pro CONFIG+=release
-        mingw32-make -j2 || mingw32-make
+        mingw32-make
+
         cd ..
 
         # 4. Prepare dist directory and copy executable
