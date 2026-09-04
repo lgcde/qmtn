@@ -1,1 +1,2 @@
-IDI_ICON1 ICON DISCARDABLE " ../icons/qmtn.ico\
+#include <windows.h>
+IDI_ICON1 ICON "../icons/qmtn.ico"
