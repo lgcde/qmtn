@@ -57,10 +57,16 @@ jobs:
         # 4. Build with native qmake inside src/
         echo "=== Running qmake ==="
         cd src
-        qmake mtngui.pro CONFIG+=release
+        qmake mtngui.pro CONFIG+=release \
+          "QMAKE_CHK_DIR_EXISTS=test -d" \
+          "QMAKE_MKDIR=mkdir -p" \
+          "QMAKE_DEL_FILE=rm -f" \
+          "QMAKE_DEL_DIR=rm -rf" \
+          "QMAKE_MOVE=mv -f" \
+          "QMAKE_COPY=cp -f"
 
         echo "=== Running make ==="
-        mingw32-make -j2
+        mingw32-make SHELL=cmd.exe -j2 || mingw32-make -j2 || make -j2
         cd ..
 
         # 5. Prepare dist directory and copy executable
