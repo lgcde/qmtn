@@ -15,7 +15,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup MSYS2 Environment (Qt5 + GCC + Make)
+    - name: Setup MSYS2 Environment (Qt5 + GCC + Make + CMake)
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -24,6 +24,7 @@ jobs:
         install: >-
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-make
+          mingw-w64-x86_64-cmake
           mingw-w64-x86_64-qt5-base
           mingw-w64-x86_64-qt5-tools
           mingw-w64-x86_64-qt5-svg
@@ -42,28 +43,22 @@ jobs:
           lrelease lang/sk.ts -qm src/lang/sk.qm || true
         fi
 
-        # 2. Copy icon file to src/ to guarantee windres finds qmtn.ico
-        cp icons/qmtn.ico src/qmtn.ico || true
+        # 2. Build with CMake
+        cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+        cmake --build build --config Release
 
-        # 3. Build with qmake & mingw32-make inside src/
-        cd src
-        qmake mtngui.pro CONFIG+=release
-        mingw32-make
-
-        cd ..
-
-        # 4. Prepare dist directory and copy executable
+        # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || cp qmtn.exe dist/ 2>/dev/null || true
+        cp build/qmtn.exe dist/ 2>/dev/null || cp build/Release/qmtn.exe dist/ 2>/dev/null || find build -name "qmtn.exe" -exec cp {} dist/ \;
 
-        # 5. Check if qmtn.exe exists
+        # 4. Check if qmtn.exe exists
         if [ ! -f "dist/qmtn.exe" ]; then
           echo "ERROR: qmtn.exe was not created in dist!"
           find . -name "*.exe" 2>/dev/null || true
           exit 1
         fi
 
-        # 6. Deploy Qt DLL Dependencies
+        # 5. Deploy Qt DLL Dependencies
         windeployqt dist/qmtn.exe || true
 
         # Copy MinGW C++ runtime DLLs

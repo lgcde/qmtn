@@ -8,7 +8,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 COMPONENTS Core Gui Network Widgets Svg REQUIRED)
+find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core Gui Network Widgets Svg)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Network Widgets Svg REQUIRED)
 
 set(PROJECT_SOURCES
     src/main.cpp
@@ -41,11 +42,11 @@ add_executable(qmtn ${PROJECT_SOURCES})
 target_include_directories(qmtn PRIVATE src src/plugins src/uploaders)
 
 target_link_libraries(qmtn PRIVATE
-    Qt6::Core
-    Qt6::Gui
-    Qt6::Network
-    Qt6::Widgets
-    Qt6::Svg
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Network
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Svg
 )
 
 target_compile_definitions(qmtn PRIVATE
