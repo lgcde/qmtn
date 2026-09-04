@@ -60,12 +60,17 @@ jobs:
 
         # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || cp qmtn.exe dist/ 2>/dev/null || true
+        cp src/release/qmtn.exe dist/ 2>/dev/null || true
+        cp src/qmtn.exe dist/ 2>/dev/null || true
+        cp release/qmtn.exe dist/ 2>/dev/null || true
+        cp qmtn.exe dist/ 2>/dev/null || true
+        find . -name "qmtn.exe" -exec cp {} dist/ \; 2>/dev/null || true
 
         # 4. Check if qmtn.exe exists
         if [ ! -f "dist/qmtn.exe" ]; then
           echo "ERROR: qmtn.exe was not created in dist!"
-          ls -la src/ src/release/ release/ 2>/dev/null || true
+          echo "Searching for any generated executables:"
+          find . -name "*.exe" 2>/dev/null || true
           exit 1
         fi
 

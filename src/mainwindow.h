@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUrl>
 #include <QLabel>
 #include <QCheckBox>
+#include <QMutex>
 
 namespace Ui {
 class MainWindow;
