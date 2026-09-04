@@ -12,8 +12,7 @@ if(EXISTS "/mingw64/lib/cmake")
     list(APPEND CMAKE_PREFIX_PATH "/mingw64")
 endif()
 
-find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core Gui Network Widgets)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Network Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Network Widgets REQUIRED)
 
 set(PROJECT_SOURCES
     src/main.cpp
@@ -45,10 +44,10 @@ add_executable(qmtn ${PROJECT_SOURCES})
 target_include_directories(qmtn PRIVATE src src/plugins src/uploaders)
 
 target_link_libraries(qmtn PRIVATE
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Gui
-    Qt${QT_VERSION_MAJOR}::Network
-    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Network
+    Qt5::Widgets
 )
 
 target_compile_definitions(qmtn PRIVATE
