@@ -46,13 +46,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 
-    AppVersion = VERSION_RELEASE;
-    AppVersionGit = VERSION_FROM_GIT_TAG;
+    AppVersion = QStringLiteral(VERSION_RELEASE);
+    AppVersionGit = QStringLiteral(VERSION_FROM_GIT_TAG);
     setWindowTitle(QString("%1 (%2)").arg(
         qApp->applicationName(),
         QVersionNumber::fromString(AppVersion).toString()));
 #else
-    AppVersion = VERSION_RELEASE;
+    AppVersion = QStringLiteral(VERSION_RELEASE);
     setWindowTitle(QString("%1 (%2)").arg(qApp->applicationName()).arg(AppVersion));
 #endif
     datamodel = new QStandardItemModel(this);

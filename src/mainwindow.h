@@ -18,6 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#ifndef VERSION_RELEASE
+#define VERSION_RELEASE "0.5"
+#endif
+
+#ifndef VERSION_FROM_GIT_TAG
+#define VERSION_FROM_GIT_TAG "0.5"
+#endif
+
 #include "mtnworker.h"
 #include "profilemodel.h"
 #include "plugins/interfaces.h"
