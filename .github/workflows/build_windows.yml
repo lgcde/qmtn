@@ -32,6 +32,7 @@ jobs:
     - name: Compile & Package
       shell: powershell
       run: |
+        $env:CMAKE_PREFIX_PATH = "C:\msys64\mingw64"
         $env:PATH = "C:\msys64\mingw64\bin;C:\msys64\usr\bin;" + $env:PATH
 
         # 1. Compile Qt Translations (.ts -> .qm)
@@ -40,7 +41,7 @@ jobs:
         lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
 
         # 2. Build with CMake and Ninja
-        cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+        cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="C:/msys64/mingw64"
         cmake --build build --config Release
 
         # 3. Prepare dist directory and copy executable
@@ -53,6 +54,8 @@ jobs:
 
         # 4. Check if qmtn.exe exists
         if (-not (Test-Path dist/qmtn.exe)) {
+            Write-Host "Contents of build directory:"
+            Get-ChildItem -Path build -Recurse -ErrorAction SilentlyContinue
             Write-Error "ERROR: qmtn.exe was not created in dist!"
             exit 1
         }
