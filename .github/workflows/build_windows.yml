@@ -29,11 +29,14 @@ jobs:
           mingw-w64-x86_64-qt5-tools
           mingw-w64-x86_64-qt5-svg
 
+    - name: Export MinGW64 PATH to GITHUB_PATH
+      shell: powershell
+      run: |
+        "C:\msys64\mingw64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
     - name: Compile & Package in MSYS2
       shell: msys2 {0}
       run: |
-        export PATH="/mingw64/bin:$PATH"
-
         # 1. Compile Qt Translations (.ts -> .qm)
         mkdir -p src/lang lang
         lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
