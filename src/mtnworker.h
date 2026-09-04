@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MTNWORKER_H
 #define MTNWORKER_H
 
+#include <QObject>
 #include <QThreadPool>
 #include <QMutex>
 #include <QStandardItem>

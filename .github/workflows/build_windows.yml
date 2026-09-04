@@ -43,7 +43,7 @@ jobs:
           lrelease-qt5 lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
         fi
 
-        # 2. Build with qmake inside src/
+        # 2. Build with qmake & mingw32-make inside src/
         cd src
         if command -v qmake >/dev/null 2>&1; then
           qmake mtngui.pro CONFIG+=release
@@ -51,10 +51,10 @@ jobs:
           qmake-qt5 mtngui.pro CONFIG+=release
         fi
 
-        if command -v make >/dev/null 2>&1; then
-          make -j4
-        elif command -v mingw32-make >/dev/null 2>&1; then
+        if command -v mingw32-make >/dev/null 2>&1; then
           mingw32-make -j4
+        elif command -v make >/dev/null 2>&1; then
+          make -j4
         fi
         cd ..
 
