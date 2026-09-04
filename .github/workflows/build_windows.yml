@@ -35,27 +35,29 @@ jobs:
       run: |
         export PATH="/mingw64/bin:$PATH"
 
+        echo "=== Environment Info ==="
+        which gcc cmake ninja lrelease windeployqt || true
+        gcc --version || true
+        cmake --version || true
+
         # 1. Compile Qt Translations (.ts -> .qm)
         mkdir -p lang src/lang
-        if command -v lrelease >/dev/null 2>&1; then
-          lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || true
-          lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
-          lrelease lang/sk.ts -qm lang/sk.qm 2>/dev/null || true
-        elif command -v lrelease-qt5 >/dev/null 2>&1; then
-          lrelease-qt5 lang/zh_CN.ts -qm lang/zh_CN.qm || true
-          lrelease-qt5 lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
-          lrelease-qt5 lang/sk.ts -qm lang/sk.qm 2>/dev/null || true
-        fi
+        /mingw64/bin/lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || true
+        /mingw64/bin/lrelease lang/sk.ts -qm lang/sk.qm || lrelease lang/sk.ts -qm lang/sk.qm || true
+        cp lang/zh_CN.qm src/lang/zh_CN.qm || true
+        cp lang/sk.qm src/lang/sk.qm || true
 
-        # 2. Ensure placeholder .qm files exist if lrelease failed or skipped
+        # 2. Ensure .qm files exist
         touch lang/sk.qm lang/zh_CN.qm src/lang/zh_CN.qm
 
         # 3. Copy icon to src/
         cp icons/qmtn.ico src/qmtn.ico || true
 
         # 4. Build with CMake + Ninja
-        cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-        cmake --build build
+        echo "=== Running CMake ==="
+        cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=/mingw64 -DCMAKE_BUILD_TYPE=Release
+        echo "=== Building project ==="
+        cmake --build build --verbose
 
         # 5. Prepare dist directory and copy executable
         mkdir -p dist

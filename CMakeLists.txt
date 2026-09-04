@@ -8,6 +8,10 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+if(EXISTS "/mingw64/lib/cmake")
+    list(APPEND CMAKE_PREFIX_PATH "/mingw64")
+endif()
+
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core Gui Network Widgets)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Network Widgets REQUIRED)
 
