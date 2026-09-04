@@ -29,13 +29,18 @@ jobs:
           mingw-w64-x86_64-qt5-svg
           mingw-w64-x86_64-qt5-translations
 
+    - name: Add MSYS2 MinGW to PATH
+      shell: powershell
+      run: |
+        "C:\msys64\mingw64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        "C:\msys64\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
     - name: Compile & Package qmtn (Powershell / Windows Native)
       shell: powershell
       run: |
-        $env:PATH = "C:\msys64\mingw64\bin;C:\msys64\usr\bin;" + $env:PATH
-
         Write-Host "=== Environment Info ==="
-        Get-Command gcc, qmake, mingw32-make, windeployqt | Select-Object Name, Source
+        gcc --version
+        qmake -v
 
         # 1. Compile Qt Translations (.ts -> .qm)
         New-Item -ItemType Directory -Force -Path lang, src\lang
