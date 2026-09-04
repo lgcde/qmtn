@@ -43,7 +43,7 @@ jobs:
           lrelease-qt5 lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
         fi
 
-        # 2. Build with qmake & mingw32-make inside src/
+        # 2. Build with qmake & mingw32-make release inside src/
         cd src
         if command -v qmake >/dev/null 2>&1; then
           qmake mtngui.pro CONFIG+=release
@@ -52,19 +52,20 @@ jobs:
         fi
 
         if command -v mingw32-make >/dev/null 2>&1; then
-          mingw32-make -j4
+          mingw32-make release -j4 || mingw32-make -j4
         elif command -v make >/dev/null 2>&1; then
-          make -j4
+          make release -j4 || make -j4
         fi
         cd ..
 
         # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        find . -name "qmtn.exe" -exec cp {} dist/ \;
+        cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || cp qmtn.exe dist/ 2>/dev/null || true
 
         # 4. Check if qmtn.exe exists
         if [ ! -f "dist/qmtn.exe" ]; then
-          echo "ERROR: qmtn.exe was not created!"
+          echo "ERROR: qmtn.exe was not created in dist!"
+          ls -la src/ src/release/ release/ 2>/dev/null || true
           exit 1
         fi
 
