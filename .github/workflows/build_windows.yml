@@ -22,6 +22,7 @@ jobs:
         path-type: inherit
         update: false
         install: >-
+          make
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-make
           mingw-w64-x86_64-qt5-base
@@ -29,51 +30,59 @@ jobs:
           mingw-w64-x86_64-qt5-svg
           mingw-w64-x86_64-qt5-translations
 
-    - name: Compile & Package qmtn
-      shell: cmd
+    - name: Compile & Package in MSYS2
+      shell: msys2 {0}
       run: |
-        set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
+        export PATH="/mingw64/bin:$PATH"
 
-        echo === Environment Info ===
-        gcc --version
-        qmake -v
+        echo "=== Environment Info ==="
+        which gcc qmake make windeployqt || true
+        gcc --version || true
+        qmake -v || true
 
-        echo === Compile Qt Translations ===
-        if not exist lang mkdir lang
-        if not exist src\lang mkdir src\lang
-        lrelease lang\zh_CN.ts -qm lang\zh_CN.qm
-        lrelease lang\zh_CN.ts -qm src\lang\zh_CN.qm
-        copy /Y lang\zh_CN.qm src\lang\zh_CN.qm
+        # 1. Compile Qt Translations (.ts -> .qm)
+        mkdir -p lang src/lang
+        lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || true
+        lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
+        lrelease lang/sk.ts -qm lang/sk.qm 2>/dev/null || true
+        cp lang/zh_CN.qm src/lang/zh_CN.qm || true
+        cp lang/sk.qm src/lang/sk.qm || true
 
-        echo === Copy Icon ===
-        copy /Y icons\qmtn.ico src\qmtn.ico
+        # 2. Ensure .qm files exist in both root and src
+        touch lang/sk.qm lang/zh_CN.qm src/lang/zh_CN.qm src/lang/sk.qm
 
-        echo === Running qmake ===
+        # 3. Copy icon to src/
+        cp icons/qmtn.ico src/qmtn.ico || true
+
+        # 4. Build with qmake inside src/
+        echo "=== Running qmake ==="
         cd src
         qmake mtngui.pro CONFIG+=release
 
-        echo === Running mingw32-make ===
-        mingw32-make -j2
+        echo "=== Running make ==="
+        make -j2 || mingw32-make -j2
+
         cd ..
 
-        echo === Prepare dist ===
-        if not exist dist mkdir dist
-        if exist src\release\qmtn.exe copy /Y src\release\qmtn.exe dist\
-        if exist src\qmtn.exe copy /Y src\qmtn.exe dist\
-        if exist release\qmtn.exe copy /Y release\qmtn.exe dist\
+        # 5. Prepare dist directory and copy executable
+        mkdir -p dist
+        cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || find . -name "qmtn.exe" -exec cp {} dist/ \;
 
-        if not exist dist\qmtn.exe (
-            echo ERROR: dist\qmtn.exe not found!
-            exit /b 1
-        )
+        # 6. Check if qmtn.exe exists
+        if [ ! -f "dist/qmtn.exe" ]; then
+          echo "ERROR: qmtn.exe was not created in dist!"
+          find . -name "*.exe" 2>/dev/null || true
+          exit 1
+        fi
 
-        echo === Deploy Qt Dependencies ===
-        windeployqt --no-compiler-runtime dist\qmtn.exe
+        # 7. Deploy Qt DLL Dependencies
+        windeployqt --no-compiler-runtime dist/qmtn.exe || true
 
-        if exist C:\msys64\mingw64\bin\libgcc_s_seh-1.dll copy /Y C:\msys64\mingw64\bin\libgcc_s_seh-1.dll dist\
-        if exist C:\msys64\mingw64\bin\libgcc_s_dw2-1.dll copy /Y C:\msys64\mingw64\bin\libgcc_s_dw2-1.dll dist\
-        if exist C:\msys64\mingw64\bin\libstdc++-6.dll copy /Y C:\msys64\mingw64\bin\libstdc++-6.dll dist\
-        if exist C:\msys64\mingw64\bin\libwinpthread-1.dll copy /Y C:\msys64\mingw64\bin\libwinpthread-1.dll dist\
+        # Copy MinGW C++ runtime DLLs
+        cp /mingw64/bin/libgcc_s_seh-1.dll dist/ 2>/dev/null || true
+        cp /mingw64/bin/libgcc_s_dw2-1.dll dist/ 2>/dev/null || true
+        cp /mingw64/bin/libstdc++-6.dll dist/ 2>/dev/null || true
+        cp /mingw64/bin/libwinpthread-1.dll dist/ 2>/dev/null || true
 
     - name: Create Zip Artifact
       shell: powershell
