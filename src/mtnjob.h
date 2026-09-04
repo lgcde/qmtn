@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MTNJOB_H
 #define MTNJOB_H
 
+#include <QObject>
 #include <QRunnable>
 #include <QTreeWidgetItem>
 #include <QThread>
