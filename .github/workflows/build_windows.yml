@@ -40,27 +40,42 @@ jobs:
         lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
         lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
 
-        # 2. Build with CMake and Ninja
+        # 2. Try Build with CMake and Ninja
+        Write-Host "--- Attempting CMake Ninja Build ---"
         cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="C:/msys64/mingw64"
         cmake --build build --config Release
 
-        # 3. Prepare dist directory and copy executable
+        # 3. Fallback to qmake if CMake output is missing
+        if (-not (Test-Path build/qmtn.exe)) {
+            Write-Host "--- Falling back to qmake build ---"
+            Set-Location src
+            Copy-Item ../icons/qmtn.ico qmtn.ico -ErrorAction SilentlyContinue
+            qmake mtngui.pro CONFIG+=release
+            mingw32-make
+            Set-Location ..
+        }
+
+        # 4. Prepare dist directory and copy executable
         New-Item -ItemType Directory -Force -Path dist | Out-Null
         if (Test-Path build/qmtn.exe) {
             Copy-Item build/qmtn.exe dist/
+        } elseif (Test-Path src/release/qmtn.exe) {
+            Copy-Item src/release/qmtn.exe dist/
+        } elseif (Test-Path src/qmtn.exe) {
+            Copy-Item src/qmtn.exe dist/
         } else {
-            Get-ChildItem -Path build -Filter "qmtn.exe" -Recurse | Copy-Item -Destination dist/
+            Get-ChildItem -Path . -Filter "qmtn.exe" -Recurse | Copy-Item -Destination dist/
         }
 
-        # 4. Check if qmtn.exe exists
+        # 5. Check if qmtn.exe exists
         if (-not (Test-Path dist/qmtn.exe)) {
-            Write-Host "Contents of build directory:"
-            Get-ChildItem -Path build -Recurse -ErrorAction SilentlyContinue
-            Write-Error "ERROR: qmtn.exe was not created in dist!"
+            Write-Host "Listing repository files:"
+            Get-ChildItem -Path . -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue
+            Write-Error "ERROR: qmtn.exe was not created!"
             exit 1
         }
 
-        # 5. Deploy Qt DLL Dependencies
+        # 6. Deploy Qt DLL Dependencies
         windeployqt dist/qmtn.exe
 
         # Copy MinGW C++ runtime DLLs
