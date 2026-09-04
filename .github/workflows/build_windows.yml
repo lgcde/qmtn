@@ -15,7 +15,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup MSYS2 Environment (Qt6 + GCC + Make)
+    - name: Setup MSYS2 Environment (Qt5 + GCC + Make)
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -23,9 +23,9 @@ jobs:
         install: >-
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-make
-          mingw-w64-x86_64-qt6-base
-          mingw-w64-x86_64-qt6-tools
-          mingw-w64-x86_64-qt6-svg
+          mingw-w64-x86_64-qt5-base
+          mingw-w64-x86_64-qt5-tools
+          mingw-w64-x86_64-qt5-svg
 
     - name: Compile & Package in MSYS2
       shell: msys2 {0}
@@ -34,45 +34,31 @@ jobs:
 
         # 1. Compile Qt Translation (.ts -> .qm)
         mkdir -p src/lang
-        if command -v lrelease-qt6 >/dev/null 2>&1; then
-          lrelease-qt6 lang/zh_CN.ts -qm lang/zh_CN.qm
-          lrelease-qt6 lang/zh_CN.ts -qm src/lang/zh_CN.qm
-        elif command -v lrelease >/dev/null 2>&1; then
-          lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
-          lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
-        fi
+        lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
+        lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
 
-        # 2. Build with qmake6 inside src/
+        # 2. Build with qmake inside src/
         cd src
-        if command -v qmake6 >/dev/null 2>&1; then
-          qmake6 mtngui.pro CONFIG+=release
-        else
-          qmake mtngui.pro CONFIG+=release
-        fi
+        qmake mtngui.pro CONFIG+=release
         make -j4
         cd ..
 
         # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        if [ -f "src/release/qmtn.exe" ]; then
-          cp src/release/qmtn.exe dist/
-        elif [ -f "src/qmtn.exe" ]; then
-          cp src/qmtn.exe dist/
-        elif [ -f "release/qmtn.exe" ]; then
-          cp release/qmtn.exe dist/
-        elif [ -f "qmtn.exe" ]; then
-          cp qmtn.exe dist/
+        find . -name "qmtn.exe" -exec cp {} dist/ \;
+
+        # 4. Check if qmtn.exe exists
+        if [ ! -f "dist/qmtn.exe" ]; then
+          echo "ERROR: qmtn.exe was not created!"
+          exit 1
         fi
 
-        # 4. Deploy Qt6 DLL Dependencies
-        if command -v windeployqt-qt6 >/dev/null 2>&1; then
-          windeployqt-qt6 dist/qmtn.exe || true
-        elif command -v windeployqt >/dev/null 2>&1; then
-          windeployqt dist/qmtn.exe || true
-        fi
+        # 5. Deploy Qt DLL Dependencies
+        windeployqt dist/qmtn.exe || true
 
         # Copy MinGW C++ runtime DLLs
         cp /mingw64/bin/libgcc_s_seh-1.dll dist/ 2>/dev/null || true
+        cp /mingw64/bin/libgcc_s_dw2-1.dll dist/ 2>/dev/null || true
         cp /mingw64/bin/libstdc++-6.dll dist/ 2>/dev/null || true
         cp /mingw64/bin/libwinpthread-1.dll dist/ 2>/dev/null || true
 
