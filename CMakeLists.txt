@@ -52,6 +52,6 @@ target_link_libraries(qmtn PRIVATE
 )
 
 target_compile_definitions(qmtn PRIVATE
-    VERSION_RELEASE=\"0.5\"
-    VERSION_FROM_GIT_TAG=\"0.5\"
+    VERSION_RELEASE="\"0.5\""
+    VERSION_FROM_GIT_TAG="\"0.5\""
 )
