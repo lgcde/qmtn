@@ -15,15 +15,14 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup MSYS2 Environment (Qt6 + GCC + CMake + Ninja)
+    - name: Setup MSYS2 Environment (Qt6 + GCC + Make)
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
         update: false
         install: >-
           mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-ninja
-          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-make
           mingw-w64-x86_64-qt6-base
           mingw-w64-x86_64-qt6-tools
           mingw-w64-x86_64-qt6-svg
@@ -40,18 +39,26 @@ jobs:
           lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
         fi
 
-        # 2. Configure & Build with CMake & Ninja
-        mkdir build && cd build
-        cmake .. -G "Ninja" -DCMAKE_BUILD_TYPE=Release
-        cmake --build . -j4
+        # 2. Build with qmake6 inside src/
+        cd src
+        if command -v qmake6 >/dev/null 2>&1; then
+          qmake6 mtngui.pro CONFIG+=release
+        else
+          qmake mtngui.pro CONFIG+=release
+        fi
+        make -j4
         cd ..
 
         # 3. Prepare dist directory and copy executable
         mkdir -p dist
-        if [ -f "build/qmtn.exe" ]; then
-          cp build/qmtn.exe dist/
+        if [ -f "src/release/qmtn.exe" ]; then
+          cp src/release/qmtn.exe dist/
         elif [ -f "src/qmtn.exe" ]; then
           cp src/qmtn.exe dist/
+        elif [ -f "release/qmtn.exe" ]; then
+          cp release/qmtn.exe dist/
+        elif [ -f "qmtn.exe" ]; then
+          cp qmtn.exe dist/
         fi
 
         # 4. Deploy Qt6 DLL Dependencies
