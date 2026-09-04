@@ -15,16 +15,16 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup MSYS2 Environment (Qt5 + GCC + CMake + Ninja)
+    - name: Setup MSYS2 Environment (Qt5 + MinGW GCC + Make)
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
-        path-type: mingw
+        path-type: inherit
         update: false
         install: >-
+          make
           mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-ninja
+          mingw-w64-x86_64-make
           mingw-w64-x86_64-qt5-base
           mingw-w64-x86_64-qt5-tools
           mingw-w64-x86_64-qt5-svg
@@ -34,44 +34,38 @@ jobs:
       shell: msys2 {0}
       run: |
         export PATH="/mingw64/bin:$PATH"
-        export CC="/mingw64/bin/gcc.exe"
-        export CXX="/mingw64/bin/g++.exe"
 
         echo "=== Environment Info ==="
-        which gcc g++ cmake ninja windeployqt || true
+        which gcc qmake make windeployqt || true
         gcc --version || true
-        cmake --version || true
+        qmake -v || true
 
         # 1. Compile Qt Translations (.ts -> .qm)
         mkdir -p lang src/lang
-        LRELEASE=$(which lrelease lrelease-qt5 /mingw64/bin/lrelease 2>/dev/null | head -n 1)
-        if [ -n "$LRELEASE" ]; then
-          "$LRELEASE" lang/zh_CN.ts -qm lang/zh_CN.qm || true
-          "$LRELEASE" lang/sk.ts -qm lang/sk.qm || true
-        fi
+        lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || true
+        lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm || true
+        lrelease lang/sk.ts -qm lang/sk.qm 2>/dev/null || true
         cp lang/zh_CN.qm src/lang/zh_CN.qm || true
         cp lang/sk.qm src/lang/sk.qm || true
 
-        # 2. Ensure .qm files exist
-        touch lang/sk.qm lang/zh_CN.qm src/lang/zh_CN.qm
+        # 2. Ensure .qm files exist in both root and src
+        touch lang/sk.qm lang/zh_CN.qm src/lang/zh_CN.qm src/lang/sk.qm
 
         # 3. Copy icon to src/
         cp icons/qmtn.ico src/qmtn.ico || true
 
-        # 4. Build with CMake + Ninja
-        echo "=== Running CMake ==="
-        cmake -B build -G Ninja \
-          -DCMAKE_C_COMPILER=/mingw64/bin/gcc.exe \
-          -DCMAKE_CXX_COMPILER=/mingw64/bin/g++.exe \
-          -DCMAKE_PREFIX_PATH=/mingw64 \
-          -DCMAKE_BUILD_TYPE=Release
+        # 4. Build with native qmake inside src/
+        echo "=== Running qmake ==="
+        cd src
+        qmake mtngui.pro CONFIG+=release
 
-        echo "=== Building project ==="
-        cmake --build build --verbose
+        echo "=== Running make ==="
+        make -j2 || mingw32-make -j2 || make
+        cd ..
 
         # 5. Prepare dist directory and copy executable
         mkdir -p dist
-        cp build/qmtn.exe dist/ 2>/dev/null || find build -name "qmtn.exe" -exec cp {} dist/ \;
+        cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || find . -name "qmtn.exe" -exec cp {} dist/ \;
 
         # 6. Check if qmtn.exe exists
         if [ ! -f "dist/qmtn.exe" ]; then

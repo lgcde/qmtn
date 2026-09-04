@@ -2,7 +2,12 @@ QT += core gui network widgets
 
 TARGET = qmtn
 TEMPLATE = app
-#CONFIG +=c++11
+
+QMAKE_DEL_FILE = rm -f
+QMAKE_MOVE = mv -f
+QMAKE_COPY = cp -f
+QMAKE_MKDIR = mkdir -p
+QMAKE_DEL_DIR = rm -rf
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
