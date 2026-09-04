@@ -19,7 +19,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
-        path-type: inherit
+        path-type: mingw
         update: false
         install: >-
           mingw-w64-x86_64-gcc
@@ -34,16 +34,21 @@ jobs:
       shell: msys2 {0}
       run: |
         export PATH="/mingw64/bin:$PATH"
+        export CC="/mingw64/bin/gcc.exe"
+        export CXX="/mingw64/bin/g++.exe"
 
         echo "=== Environment Info ==="
-        which gcc cmake ninja lrelease windeployqt || true
+        which gcc g++ cmake ninja windeployqt || true
         gcc --version || true
         cmake --version || true
 
         # 1. Compile Qt Translations (.ts -> .qm)
         mkdir -p lang src/lang
-        /mingw64/bin/lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || lrelease lang/zh_CN.ts -qm lang/zh_CN.qm || true
-        /mingw64/bin/lrelease lang/sk.ts -qm lang/sk.qm || lrelease lang/sk.ts -qm lang/sk.qm || true
+        LRELEASE=$(which lrelease lrelease-qt5 /mingw64/bin/lrelease 2>/dev/null | head -n 1)
+        if [ -n "$LRELEASE" ]; then
+          "$LRELEASE" lang/zh_CN.ts -qm lang/zh_CN.qm || true
+          "$LRELEASE" lang/sk.ts -qm lang/sk.qm || true
+        fi
         cp lang/zh_CN.qm src/lang/zh_CN.qm || true
         cp lang/sk.qm src/lang/sk.qm || true
 
@@ -55,7 +60,12 @@ jobs:
 
         # 4. Build with CMake + Ninja
         echo "=== Running CMake ==="
-        cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=/mingw64 -DCMAKE_BUILD_TYPE=Release
+        cmake -B build -G Ninja \
+          -DCMAKE_C_COMPILER=/mingw64/bin/gcc.exe \
+          -DCMAKE_CXX_COMPILER=/mingw64/bin/g++.exe \
+          -DCMAKE_PREFIX_PATH=/mingw64 \
+          -DCMAKE_BUILD_TYPE=Release
+
         echo "=== Building project ==="
         cmake --build build --verbose
 
