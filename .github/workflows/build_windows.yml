@@ -32,29 +32,34 @@ jobs:
       run: |
         export PATH="/mingw64/bin:$PATH"
 
-        # 1. Compile Qt Translation (.ts -> .qm)
-        mkdir -p src/lang
+        # 1. Compile Qt Translations (.ts -> .qm)
+        mkdir -p src/lang lang
         lrelease lang/zh_CN.ts -qm lang/zh_CN.qm
         lrelease lang/zh_CN.ts -qm src/lang/zh_CN.qm
+        [ -f lang/sk.ts ] && lrelease lang/sk.ts -qm lang/sk.qm 2>/dev/null || true
+        [ -f lang/sk.ts ] && lrelease lang/sk.ts -qm src/lang/sk.qm 2>/dev/null || true
 
-        # 2. Build with qmake & mingw32-make release inside src/
+        # 2. Copy icon file to src/ to guarantee windres finds qmtn.ico
+        cp icons/qmtn.ico src/qmtn.ico 2>/dev/null || true
+
+        # 3. Build with qmake & mingw32-make inside src/
         cd src
         qmake mtngui.pro CONFIG+=release
-        mingw32-make release -j2 || mingw32-make -j2
+        mingw32-make -j2 || mingw32-make
         cd ..
 
-        # 3. Prepare dist directory and copy executable
+        # 4. Prepare dist directory and copy executable
         mkdir -p dist
         cp src/release/qmtn.exe dist/ 2>/dev/null || cp src/qmtn.exe dist/ 2>/dev/null || cp release/qmtn.exe dist/ 2>/dev/null || cp qmtn.exe dist/ 2>/dev/null || true
 
-        # 4. Check if qmtn.exe exists
+        # 5. Check if qmtn.exe exists
         if [ ! -f "dist/qmtn.exe" ]; then
           echo "ERROR: qmtn.exe was not created in dist!"
           find . -name "*.exe" 2>/dev/null || true
           exit 1
         fi
 
-        # 5. Deploy Qt DLL Dependencies
+        # 6. Deploy Qt DLL Dependencies
         windeployqt dist/qmtn.exe || true
 
         # Copy MinGW C++ runtime DLLs
